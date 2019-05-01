@@ -1,0 +1,49 @@
+.authTab {
+  background-color: $white-color;
+  width: 100% !important;
+  margin: 0 auto;
+  font-family: $poppins;
+  box-shadow: 0 .2rem .5rem rgba($black, .2);
+  transform: scale(0.8);
+
+  
+  .authMainText {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: $light;
+    color: $black;
+    margin-bottom: 1.5rem;
+  }
+
+  .authSubText {
+    font-weight: $light;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    word-spacing: 0.3rem;
+    color: $sub-ash;
+  }
+
+  .authMenu {
+    border: none !important;
+    font-size: 1.8rem !important;
+
+    a {
+      background-color: #F2F2F2 !important;
+      border-radius: none !important;
+      border: none;
+      text-transform: uppercase !important;
+      letter-spacing: .1rem !important;
+    }
+    .active{
+      background-color: $white-color !important;
+      border-radius: none !important;
+      border: none !important;
+    }
+  }
+
+}
+
+.tab {
+  padding: 2rem !important;
+}
