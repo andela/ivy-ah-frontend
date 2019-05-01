@@ -1,0 +1,37 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    box-shadow: 0 .2rem .5rem rgba(#000, .2) !important;
+    font-size: 1.5rem !important;
+    width: 100%;
+    color: $sub-ash;
+    text-align: center;
+    padding: 2rem 0rem;
+    letter-spacing: .2rem;
+    border: none !important;
+    margin-bottom: 2rem !important;
+    cursor: pointer;
+    transition: all .4s !important;
+  }
+}
+
+.blueButton {
+  background-color: $main-blue !important;
+  color: $white-color !important;
+
+  &:hover {
+    background-color: $dark-blue !important;
+  }
+}
+
+.whiteButton {
+  background-color: $white-color !important;
+  box-shadow: 0 .1rem .1rem rgba(#000, .2) !important;
+
+
+  &:hover {
+    background-color: $dark-blue !important;
+    color: $white-color !important;
+  }
+}

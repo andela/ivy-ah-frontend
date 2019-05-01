@@ -1,10 +1,8 @@
-$primary-color: #11044e;
-$second-color: #008000;
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "Base/base";
+@import "Base/utilities";
+@import "./components/button";
+@import "./components/authTab";
+@import "./components/form";
 
-body {
-  background: $primary-color;
-}
-
-h1 {
-  color: $second-color;
-}
