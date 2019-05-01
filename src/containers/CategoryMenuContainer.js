@@ -7,7 +7,7 @@ const CategoryMenuContainer = () => {
   const [menuState, setMenu] = useState({ open: false });
 
   let categoryMenu;
-  let scrollContainer;
+  let catetoryScroll;
 
   const onButtonClick = () => {
     if (!menuState.open) {
@@ -19,30 +19,24 @@ const CategoryMenuContainer = () => {
   };
 
   const setMenuRef = (ref) => {
+    if (!ref) { return; }
     categoryMenu = ref;
+    categoryMenu.style.left = '0px';
   };
 
   const scrollRef = (ref) => {
-    Scroll(scrollContainer, {
+    if (!ref) { return; }
+    catetoryScroll = Scroll(ref, {
       overflowBehavior: { x: 'hidden' },
       scrollbars: {
         autoHide: 'move',
         autoHideDelay: 1000,
       }
     });
-    const handleOutsideClick = ({ target }) => {
-      scrollContainer = ref;
-      if (!categoryMenu) { return; }
-      if (!categoryMenu.contains(target)) {
-        onButtonClick();
-        document.removeEventListener('click', handleOutsideClick);
-      }
-    };
-    document.addEventListener('click', handleOutsideClick);
   };
 
-  const closeMenu = () => {
-    if (!menuState.open) {
+  const closeMenu = (force) => {
+    if (!menuState.open || force === true) {
       setMenu({ open: false });
     }
   };
@@ -50,12 +44,23 @@ const CategoryMenuContainer = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 590) {
-        onButtonClick();
+        closeMenu(true);
       }
     };
     window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    const handleOutsideClick = ({ target }) => {
+      if (!categoryMenu.contains(target)) {
+        onButtonClick();
+      }
+    };
+    if (categoryMenu) { window.addEventListener('click', handleOutsideClick); }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('click', handleOutsideClick);
+      if (catetoryScroll) { catetoryScroll.destroy(); }
+    };
   });
 
   return (

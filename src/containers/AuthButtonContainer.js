@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleModal } from '../actions/auth';
-import { fetchProfile } from '../actions/profile';
 import ProfileContainer from './ProfileContainer';
 
 const AuthButtonContainer = ({
@@ -25,7 +24,6 @@ const AuthButtonContainer = ({
 const mapDispatchToProps = dispatch => ({
   signup: () => dispatch(toggleModal('sign up')),
   login: () => dispatch(toggleModal('sign in')),
-  getProfile: () => dispatch(fetchProfile())
 });
 
 const mapStateToProps = ({ auth, profileReducer }) => ({
@@ -33,18 +31,19 @@ const mapStateToProps = ({ auth, profileReducer }) => ({
 });
 
 AuthButtonContainer.propTypes = {
-  token: PropTypes.oneOf([PropTypes.string, null]).isRequired,
+  token: PropTypes.string,
   signup: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   getProfile: PropTypes.func.isRequired,
   loginClass: PropTypes.string.isRequired,
   signupClass: PropTypes.string.isRequired,
   containerClass: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 AuthButtonContainer.defaultProps = {
-  onClick: false
+  onClick: false,
+  token: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthButtonContainer);

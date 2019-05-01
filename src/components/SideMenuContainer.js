@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SideMenuBtn from '../components/SideMenuBtn';
-import SideMenu from '../components/SideMenu';
-import { backgroundToggle, background } from '../helpers/backgroundToggle';
+import SideMenuBtn from './SideMenuBtn';
+import SideMenu from './SideMenu';
+import { backgroundToggle } from '../helpers/backgroundToggle';
 
 const SideMenuContainer = () => {
   const [menuState, setMenu] = useState({ open: false });
@@ -20,37 +20,39 @@ const SideMenuContainer = () => {
   };
 
   const setMenuRef = (ref) => {
+    if (!ref) { return; }
     sideMenu = ref;
   };
 
-  const closeMenu = () => {
-    if (!menuState.open) {
+  const closeMenu = (force) => {
+    if (!menuState.open || force === true) {
       setMenu({ open: false });
     }
   };
 
   useEffect(() => {
+    const handleOutsideClick = ({ target }) => {
+      if (!sideMenu.contains(target)) {
+        onButtonClick();
+      }
+    };
     if (sideMenu) {
       sideMenu.style.left = '0px';
-
-      const handleOutsideClick = () => {
-        onButtonClick();
-        background().removeEventListener('click', handleOutsideClick);
-      };
-      background().addEventListener('click', handleOutsideClick);
-
-      const handleResize = () => {
-        if (window.innerWidth > 590) {
-          onButtonClick();
-        }
-      };
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('click', handleOutsideClick);
-        window.removeEventListener('resize', handleResize);
-      };
+      window.addEventListener('click', handleOutsideClick);
     }
+
+    const handleResize = () => {
+      if (window.innerWidth > 590) {
+        closeMenu(true);
+        backgroundToggle(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
   return (
