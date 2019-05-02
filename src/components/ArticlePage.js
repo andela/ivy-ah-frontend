@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import ArticleContent from 'Components/ArticleContent';
+import ArticleContent from './ArticleContent';
 import ArticleMetadata from './ArticleMetadata';
 import ArticleTag from './ArticleTag';
 import AuthorMetadata from './AuthorMetadata';

@@ -33,5 +33,5 @@ export const fetchArticle = id => client.get(`/articles/${id}`);
 export const fetchProfile = id => client.get(`/profiles/${id}`);
 export const fetchUserArticle = userId => client.get(`users/articles/${userId}`);
 export const fetchUserFollowers = authorId => client.get(`profiles/${authorId}/followers`);
-
 export const fetchArticles = (page, limit) => client.get('/articles/', { params: { page, limit } });
+export const addArticle = article => client.post('/articles', article);
