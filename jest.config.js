@@ -11,4 +11,7 @@ module.exports = {
   testURL: 'http://localhost',
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   verbose: true,
+  moduleNameMapper: {
+    '\\.(svg)$': '<rootDir>/test/__mocks__/svgMock.js'
+  }
 };
