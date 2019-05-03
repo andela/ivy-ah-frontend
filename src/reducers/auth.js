@@ -11,7 +11,6 @@ const initialState = {
 };
 
 const authLoading = (state, action) => {
-  console.log('i am auth loading');
   return {
     ...state,
     error: null,
@@ -20,7 +19,6 @@ const authLoading = (state, action) => {
 };
 
 const signupSuccess = (state, action) => {
-  console.log('i am from signupSuccess');
   return {
     ...state,
     token: action.token,
@@ -34,7 +32,6 @@ const signupSuccess = (state, action) => {
 };
 
 const signupFail = (state, action) => {
-  console.log('i am from failing signup');
   return {
     ...state,
     error: action.error,
@@ -47,7 +44,6 @@ const AuthReducer = (state = initialState, action) => {
     case actions.AUTHLOADING: return authLoading(state, action);
     case actions.SIGNUPSUCCESS: return signupSuccess(state, action);
     case actions.SIGNUPFAIL: return signupFail(state, action);
-    // case actions.SET_AUTH_REDIRECT_PATH: return setAuthRedirectPath(state, action);
     default:
       return state;
   }

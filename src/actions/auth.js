@@ -6,9 +6,10 @@ export const authStart = () => ({
   type: actions.AUTHLOADING
 });
 
-export const signUpSuccess = (token, userId, userEmail) => ({
+export const signUpSuccess = (token, id, email) => ({
   type: actions.SIGNUPSUCCESS,
-  userId,
+  userId: id,
+  userEmail: email,
   token
 });
 
@@ -27,36 +28,13 @@ export const signUp = (firstname, lastname, email, password) => (dispatch) => {
   };
   const url = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/signup';
   axios.post(url, authData)
-    .then((response) => { 
-      
+    .then((response) => {
+      const { userid, token } = response.data.user;
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      dispatch(signUpSuccess(token, userid, response.data.user.email));
+    })
+    .catch((err) => {
+      const { error } = err.response.data;
+      dispatch(signUpFail(error));
     });
 };
-
-
-// export const auth = (email, password, isSignup) => {
-//   return dispatch => {
-//       dispatch(authStart());
-//       const authData = {
-//           email: email,
-//           password: password,
-//           returnSecureToken: true
-//       };resp
-//       let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-//       if (!isSignup) {
-//           url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-//       }
-//       axios.post(url, authData)
-//           .then(response => {
-//               console.log(response);
-//               const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-//               localStorage.setItem('token', response.data.idToken);
-//               localStorage.setItem('expirationDate', expirationDate);
-//               localStorage.setItem('userId', response.data.localId);
-//               dispatch(authSuccess(response.data.idToken, response.data.localId));
-//               dispatch(checkAuthTimeout(response.data.expiresIn));
-//           })
-//           .catch(err => {
-//               dispatch(authFail(err.response.data.error));
-//           });
-//   };
-// };
