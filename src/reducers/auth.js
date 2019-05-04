@@ -10,35 +10,29 @@ const initialState = {
   authRedirectPath: '/'
 };
 
-const authLoading = (state, action) => {
-  return {
-    ...state,
-    error: null,
-    loading: true
-  };
-};
+const authLoading = (state, action) => ({
+  ...state,
+  error: null,
+  loading: true
+});
 
-const signupSuccess = (state, action) => {
-  return {
-    ...state,
-    token: action.token,
-    userId: action.userId,
-    userEmail: action.userEmail,
-    signedUp: true,
-    verified: false,
-    loading: false,
-    error: null
+const signupSuccess = (state, action) => ({
+  ...state,
+  token: action.token,
+  userId: action.userId,
+  userEmail: action.userEmail,
+  signedUp: true,
+  verified: false,
+  loading: false,
+  error: null
 
-  };
-};
+});
 
-const signupFail = (state, action) => {
-  return {
-    ...state,
-    error: action.error,
-    loading: false
-  };
-};
+const signupFail = (state, action) => ({
+  ...state,
+  error: action.error,
+  loading: false
+});
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
