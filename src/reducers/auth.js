@@ -24,6 +24,7 @@ const signupSuccess = (state, action) => {
     token: action.token,
     userId: action.userId,
     userEmail: action.userEmail,
+    signedUp: true,
     verified: false,
     loading: false,
     error: null

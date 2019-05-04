@@ -1,40 +1,12 @@
-.authModal {
+.authTab {
   background-color: $white-color;
   width: 100% !important;
   margin: 0 auto;
   font-family: $poppins;
-  padding: 2rem;
   box-shadow: 0 .2rem .5rem rgba($black, .2);
   transform: scale(0.8);
 
-  .authSwitch {
-    margin: -2rem;
-    margin-bottom: 2rem !important;
-    font-size: 2.3rem;
-    text-transform: uppercase;
-    font-weight: $light;
-    text-align: center;
-
-    &::after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-  }
-
-  .switch {
-    color: $black;
-    width: 50%;
-    padding: .8rem 0rem;
-    float: left;
-    transition: all .3s;
-    background-color: $white-color;
-
-    &:hover {
-    background-color:#f2f2f2;
-    }
-  }
-
+  
   .authMainText {
     text-align: center;
     font-size: 1.8rem;
@@ -52,7 +24,24 @@
     color: $sub-ash;
   }
 
-  .active {
-    background-color: #f2f2f2;
+  .authMenu {
+    border: none !important;
+    font-size: 1.5rem !important;
+
+    a {
+      background-color: rgb(194, 194, 194) !important;
+      border-radius: none !important;
+      border: none;
+    }
+    .active{
+      background-color: $white-color !important;
+      border-radius: none !important;
+      border: none !important;
+    }
   }
+
+}
+
+.tab {
+  padding: 2rem !important;
 }

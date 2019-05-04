@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input } from 'semantic-ui-react';
 import Button from './Button';
 
-const SignupForm = ({ submit, changed, clicked }) => (
+
+const SignupForm = ({
+  submit, changed, clicked, loading, disabled, signedUp
+}) => (
   <div>
     <Form onSubmit={submit} size="huge">
       <Form.Group widths="equal">
@@ -73,12 +77,27 @@ const SignupForm = ({ submit, changed, clicked }) => (
             {' '}
           </span>
         </p>
-        <Button clicked={clicked} type="blueButton">
-      Sign Up
+        <Button loading={loading} disabled={disabled} clicked={clicked} type="blueButton">
+          { (signedUp) ? 'Sign up successful' : 'Sign up'}
         </Button>
       </Form.Field>
     </Form>
   </div>
 );
+
+SignupForm.propTypes = {
+  submit: PropTypes.func.isRequired,
+  changed: PropTypes.func.isRequired,
+  clicked: PropTypes.func.isRequired,
+  signedUp: PropTypes.bool,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+};
+
+SignupForm.defaultProps = {
+  signedUp: false,
+  loading: false,
+  disabled: false
+};
 
 export default SignupForm;
