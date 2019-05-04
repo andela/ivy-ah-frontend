@@ -26,12 +26,14 @@
 
   .authMenu {
     border: none !important;
-    font-size: 1.5rem !important;
+    font-size: 1.8rem !important;
 
     a {
-      background-color: rgb(194, 194, 194) !important;
+      background-color: #F2F2F2 !important;
       border-radius: none !important;
       border: none;
+      text-transform: uppercase !important;
+      letter-spacing: .1rem !important;
     }
     .active{
       background-color: $white-color !important;

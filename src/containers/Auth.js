@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Tab, Divider, Button } from 'semantic-ui-react';
 
 import Modal from '../components/AuthModal';
@@ -8,6 +7,7 @@ import SignupForm from '../components/SignupForm';
 import AuthTab from '../components/AuthTab';
 import SocialLogin from '../components/SocialLogin';
 import { signUp } from '../actions/auth';
+import AuthErrorMessage from '../components/AuthErrorMessage';
 
 const buttonArray = [
   {
@@ -25,8 +25,10 @@ const buttonArray = [
 ];
 
 const Auth = (props) => {
-  const { loading, signedUp, authRedirectPath, isAuthenticated } = props;
-
+  const {
+    loading, signedUp, authRedirectPath, isAuthenticated, error
+  } = props;
+  console.log(error, 'i am from the error');
   const [formInput, setFormInput] = useState({
     firstname: '',
     lastname: '',
@@ -35,15 +37,15 @@ const Auth = (props) => {
     confirmPassword: ''
   });
 
-  const [shouldOpen, setShouldOpen] = useState({ shouldOpen: false, opening: 'sign up' });
+  const [modal, setModal] = useState({ open: false, opening: '' });
 
-  console.log(props);
-  let authRedirect = null;
-  if (signedUp) {
-    authRedirect = <Redirect to={authRedirectPath} />;
-  }
+  // console.log(props);
+  // let authRedirect = null;
+  // if (signedUp) {
+  //   authRedirect = <Redirect to={authRedirectPath} />;
+  // }
 
-  console.log(authRedirect, authRedirectPath);
+  // console.log(authRedirect, authRedirectPath);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -51,6 +53,17 @@ const Auth = (props) => {
       firstname, lastname, email, password
     } = formInput;
     props.onSignup(firstname, lastname, email, password);
+  };
+
+  const modalHandler = (open, opening) => {
+    const updatedModal = {
+      ...modal
+    };
+    updatedModal.open = open;
+    updatedModal.opening = opening;
+    setModal({
+      ...updatedModal
+    });
   };
 
   const inputChangedHandler = (event, { name }) => {
@@ -80,6 +93,7 @@ const Auth = (props) => {
             <Divider style={{ margin: '2rem 0' }} horizontal>
               Or
             </Divider>
+            <AuthErrorMessage hidden={!error} error={error} />
             <SignupForm
               signedUp={isAuthenticated}
               loading={loading}
@@ -95,10 +109,15 @@ const Auth = (props) => {
 
   return (
     <div>
-      <Button onClick>Mini</Button>
-      <Button >Tiny</Button>
-      <Modal message="click me" open={shouldOpen} size="small" callToAction="Auth button">
-        <AuthTab>{panes}</AuthTab>
+      <Button onClick={() => modalHandler(true, 'sign up')}>Sign up</Button>
+      <Button onClick={() => modalHandler(true, 'sign in')}>Sign in</Button>
+      <Modal
+        close={() => modalHandler(false, '')}
+        open={modal.open}
+        size="small"
+        callToAction="Auth button"
+      >
+        <AuthTab active={modal.opening}>{panes}</AuthTab>
       </Modal>
     </div>
   );
@@ -113,7 +132,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSignup: (firstname, lastname, email, password) => dispatch(signUp(firstname, lastname, email, password))
+  onSignup: (firstname,
+    lastname,
+    email,
+    password) => dispatch(signUp(firstname, lastname, email, password))
 });
 
 export default connect(mapStateToProps,

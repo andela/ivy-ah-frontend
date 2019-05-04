@@ -35,6 +35,7 @@ export const signUp = (firstname, lastname, email, password) => (dispatch) => {
     })
     .catch((err) => {
       const { error } = err.response.data;
+      console.log(err.response);
       dispatch(signUpFail(error));
     });
 };
