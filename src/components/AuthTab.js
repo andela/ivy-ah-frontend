@@ -1,24 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tab } from 'semantic-ui-react';
 
-const AuthTab = ({ children }) => (
-  <div className="authModal">
-    <div className="authSwitch">
-      <div className="row">
-        <div><span className="switch ">Sign up</span></div>
-        <div><span className="switch active">Sign In</span></div>
-      </div>
-    </div>
-    <div className="margin-bottom-md">
-      <p className="authMainText"> Create your Account </p>
-      <p className="authSubText">Join the largest community of authors and readers</p>
-    </div>
-    { children }
+const AuthTab = ({ children, active }) => (
+  <div className="authTab">
+    <Tab
+      defaultActiveIndex={(active === 'sign in') ? 1 : 0}
+      menu={{
+        className: 'authMenu',
+        stackable: true,
+        borderless: true,
+        tabular: false,
+        size: 'massive',
+        inverted: false,
+        widths: 2,
+        attached: true
+      }}
+      panes={children}
+    />
   </div>
 );
 
 AuthTab.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  active: PropTypes.string
+};
+
+AuthTab.defaultProps = {
+  active: 'sign up'
 };
 
 export default AuthTab;
