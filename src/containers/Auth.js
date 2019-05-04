@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Divider } from 'semantic-ui-react';
 import Modal from '../components/Modal';
 import SignupForm from '../components/SignupForm';
+import LoginForm from '../components/Login';
 import AuthTab from '../components/AuthTab';
 import SocialLogin from '../components/SocialLogin';
 import { signUp } from '../actions/auth';
@@ -59,6 +60,7 @@ const Auth = (props) => {
           Or
           </Divider>
           <SignupForm submit={submitHandler} changed={inputChangedHandler} />
+          <LoginForm submit={submitHandler} changed={inputChangedHandler} />
         </div>
       </AuthTab>
     </Modal>
