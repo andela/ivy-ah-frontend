@@ -22,7 +22,7 @@ const AuthTab = ({ children, active }) => (
 );
 
 AuthTab.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
   active: PropTypes.string
 };
 

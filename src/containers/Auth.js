@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Tab, Divider, Button } from 'semantic-ui-react';
 
 import Modal from '../components/AuthModal';
@@ -8,6 +9,7 @@ import AuthTab from '../components/AuthTab';
 import SocialLogin from '../components/SocialLogin';
 import { signUp } from '../actions/auth';
 import AuthErrorMessage from '../components/AuthErrorMessage';
+import authValidation from '../helpers/authValidation';
 
 const buttonArray = [
   {
@@ -26,33 +28,28 @@ const buttonArray = [
 
 const Auth = (props) => {
   const {
-    loading, signedUp, authRedirectPath, isAuthenticated, error
+    loading, isAuthenticated, error, onSignup
   } = props;
-  console.log(error, 'i am from the error');
+
   const [formInput, setFormInput] = useState({
     firstname: '',
     lastname: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    formError: {}
   });
 
   const [modal, setModal] = useState({ open: false, opening: '' });
 
-  // console.log(props);
-  // let authRedirect = null;
-  // if (signedUp) {
-  //   authRedirect = <Redirect to={authRedirectPath} />;
-  // }
-
-  // console.log(authRedirect, authRedirectPath);
-
   const submitHandler = (event) => {
     event.preventDefault();
     const {
-      firstname, lastname, email, password
+      formError, firstname, lastname, email, password
     } = formInput;
-    props.onSignup(firstname, lastname, email, password);
+    if (Object.keys(formError).length === 0) {
+      onSignup(firstname, lastname, email, password);
+    }
   };
 
   const modalHandler = (open, opening) => {
@@ -76,7 +73,17 @@ const Auth = (props) => {
     });
   };
 
-  const panes = [
+  const checkInputValidity = (event) => {
+    const updatedFormInput = { ...formInput };
+    const fieldName = event.target.name;
+    const checkForm = authValidation(fieldName, updatedFormInput);
+    setFormInput({
+      ...updatedFormInput,
+      formError: checkForm
+    });
+  };
+
+  const modalPanes = [
     {
       menuItem: 'Sign up',
       render: () => (
@@ -93,8 +100,15 @@ const Auth = (props) => {
             <Divider style={{ margin: '2rem 0' }} horizontal>
               Or
             </Divider>
-            <AuthErrorMessage hidden={!error} error={error} />
+            <AuthErrorMessage
+              hidden={
+                !!(!error && Object.keys(formInput.formError).length === 0)
+              }
+              error={error || formInput.formError}
+            />
             <SignupForm
+              blured={checkInputValidity}
+              value={formInput}
               signedUp={isAuthenticated}
               loading={loading}
               submit={submitHandler}
@@ -117,7 +131,7 @@ const Auth = (props) => {
         size="small"
         callToAction="Auth button"
       >
-        <AuthTab active={modal.opening}>{panes}</AuthTab>
+        <AuthTab active={modal.opening}>{modalPanes}</AuthTab>
       </Modal>
     </div>
   );
@@ -132,11 +146,23 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSignup: (firstname,
-    lastname,
-    email,
-    password) => dispatch(signUp(firstname, lastname, email, password))
+  onSignup:
+  (firstname, lastname, email, password) => dispatch(signUp(firstname, lastname, email, password))
 });
+
+Auth.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  error: PropTypes.oneOf(['null', PropTypes.object]).isRequired,
+  onSignup: PropTypes.func
+
+};
+
+const defaultFunc = input => input;
+
+Auth.defaultProps = {
+  onSignup: defaultFunc
+};
 
 export default connect(mapStateToProps,
   mapDispatchToProps)(Auth);
