@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a filled icon if article has been bookmarked 1`] = `
+<button
+  className="bookmark-button"
+  onClick={[Function]}
+  type="button"
+>
+  <i
+    className="bookmark icon"
+  />
+</button>
+`;
+
+exports[`renders an empty icon if article isn't bookmarked 1`] = `
+<button
+  className="bookmark-button"
+  onClick={[Function]}
+  type="button"
+>
+  <i
+    className="bookmark outline icon"
+  />
+</button>
+`;
