@@ -1,0 +1,51 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    box-shadow: 0 .2rem .5rem rgba(#000, .2) !important;
+    font-size: 1.5rem !important;
+    width: 100%;
+    color: $sub-ash !important;
+    text-align: center;
+    padding: 2rem 0rem;
+    letter-spacing: .2rem;
+    border: none !important;
+    margin-bottom: 2rem !important;
+    cursor: pointer;
+    transition: all 0.4s !important;
+    position: relative !important;
+  }
+}
+
+.blueButton {
+  background-color: $main-blue !important;
+  color: $white-color !important;
+
+  &:hover {
+    background-color: $dark-blue !important;
+  }
+}
+
+.whiteButton {
+  background-color: $white-color !important;
+  box-shadow: 0 0.1rem 0.1rem $box-shadow-color !important;
+
+i {
+  margin-right: 1rem;
+}
+  &:hover {
+    background-color: #7cc6ff !important;
+    color: $white-color !important;
+    font-weight: bold !important; 
+
+    i {
+      color: white !important;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .whiteButton {
+    font-size: 1.4rem !important;
+  }
+}

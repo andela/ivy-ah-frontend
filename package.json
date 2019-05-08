@@ -22,17 +22,21 @@
   "homepage": "https://github.com/andela/ivy-ah-frontend#readme",
   "dependencies": {
     "babel-jest": "^24.7.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "express": "^4.16.4",
     "jest": "^24.7.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
     "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0",
     "uglifyjs-webpack-plugin": "^2.1.2",
+    "uuid": "^3.3.2",
     "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
