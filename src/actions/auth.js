@@ -1,5 +1,5 @@
 import * as actions from './actionTypes';
-import signup from '../api';
+import * as api from '../api';
 
 
 export const authStart = () => ({
@@ -31,7 +31,7 @@ export const signUp = (firstname, lastname, email, password) => (dispatch) => {
     email,
     password,
   };
-  signup(authData)
+  api.signup(authData)
     .then((response) => {
       const { userid, token } = response.data.user;
       dispatch(signUpSuccess(token, userid, response.data.user.email));
