@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Compiled files
-dist 
+dist
 
 # Runtime data
 pids
@@ -76,3 +76,4 @@ typings/
 # Serverless directories
 .serverless
 .DS_Store
+.vscode

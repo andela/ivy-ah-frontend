@@ -11,7 +11,7 @@ const App = () => (
     <Auth />
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route component={Login} />
+      <Route path="/login" component={Login} />
       <Route component={NotFound} />
     </Switch>
   </Router>

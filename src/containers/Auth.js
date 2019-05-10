@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { Tab, Divider, Button } from 'semantic-ui-react';
+import React from 'react';
+import { Tab, Divider } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Modal from '../components/AuthModal';
 import SignupForm from '../components/SignupForm';
 import AuthTab from '../components/AuthTab';
 import SocialLogin from '../components/SocialLogin';
+import { signUp, toggleModal } from '../actions/auth';
+
 
 const buttonArray = [
   {
@@ -22,38 +26,23 @@ const buttonArray = [
 ];
 
 const Auth = (props) => {
-  const [formInput, setFormInput] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
+  const {
+    loading,
+    isAuthenticated,
+    error,
+    onSignup,
+    openModal,
+    onToggleModal,
+    modalPane,
+  } = props;
 
-  const [modal, setModal] = useState({ open: false, opening: '' });
-
-  const modalHandler = (open, opening) => {
-    const updatedModal = {
-      ...modal
-    };
-    updatedModal.open = open;
-    updatedModal.opening = opening;
-    setModal({
-      ...updatedModal
-    });
+  const submitHandler = ({
+    firstname, lastname, email, password
+  }) => {
+    onSignup(firstname, lastname, email, password);
   };
 
-  const inputChangedHandler = (event, { name }) => {
-    const updatedFormInput = {
-      ...formInput
-    };
-    updatedFormInput[name] = event.target.value;
-    setFormInput({
-      ...updatedFormInput
-    });
-  };
-
-  const panes = [
+  const modalPanes = [
     {
       menuItem: 'Sign up',
       render: () => (
@@ -71,9 +60,10 @@ const Auth = (props) => {
               Or
             </Divider>
             <SignupForm
-              signedUp={false}
-              loading={false}
-              changed={inputChangedHandler}
+              authError={error}
+              signedUp={isAuthenticated}
+              loading={loading}
+              submit={submitHandler}
             />
           </div>
         </Tab.Pane>
@@ -84,18 +74,52 @@ const Auth = (props) => {
 
   return (
     <div>
-      <Button onClick={() => modalHandler(true, 'sign up')}>Sign up</Button>
-      <Button onClick={() => modalHandler(true, 'sign in')}>Sign in</Button>
       <Modal
-        close={() => modalHandler(false, '')}
-        open={modal.open}
+        close={() => onToggleModal()}
+        open={openModal}
         size="small"
         callToAction="Auth button"
       >
-        <AuthTab active={modal.opening}>{panes}</AuthTab>
+        <AuthTab active={modalPane}>{modalPanes}</AuthTab>
       </Modal>
     </div>
   );
 };
 
-export default Auth;
+const mapStateToProps = state => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  verified: state.auth.verified,
+  authRedirectPath: state.auth.authRedirectPath,
+  isAuthenticated: state.auth.token !== null,
+  openModal: state.auth.openModal,
+  modalPane: state.auth.modalPane,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSignup:
+  (firstname, lastname, email, password) => dispatch(signUp(firstname, lastname, email, password)),
+  onToggleModal:
+  modalPane => dispatch(toggleModal(modalPane))
+});
+
+Auth.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  error: PropTypes.oneOf(['null', null, PropTypes.object]).isRequired,
+  onSignup: PropTypes.func,
+  openModal: PropTypes.bool.isRequired,
+  onToggleModal: PropTypes.func,
+  modalPane: PropTypes.string
+};
+
+const defaultFunc = input => input;
+
+Auth.defaultProps = {
+  onSignup: defaultFunc,
+  onToggleModal: defaultFunc,
+  modalPane: 'sign in'
+};
+
+export default connect(mapStateToProps,
+  mapDispatchToProps)(Auth);
