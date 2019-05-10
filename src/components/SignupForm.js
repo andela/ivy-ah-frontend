@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { Form, Input } from 'semantic-ui-react';
 import Button from './Button';
 import AuthErrorMessage from './AuthErrorMessage';
-import SignupSchema from '../helpers/authValidation';
+import { SignupSchema } from '../helpers/authValidation';
 
 const SignupForm = ({
   authError, submit, loading, signedUp

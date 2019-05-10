@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const SignupSchema = Yup.object().shape({
+export const SignupSchema = Yup.object().shape({
   firstname: Yup.string()
     .matches(/^[a-z0-9]+$/i, 'symbols are not allowed in first name')
     .min(3,
@@ -28,4 +28,11 @@ const SignupSchema = Yup.object().shape({
   })
 });
 
-export default SignupSchema;
+export const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is Required'),
+  password: Yup.string()
+    .min(8, 'Password should be more than 8 characters')
+    .required('Password is required'),
+});

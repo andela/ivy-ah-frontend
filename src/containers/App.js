@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from '../components/Home';
+import Verify from '../components/verifyPage';
 import NotFound from '../components/NotFound';
 import Login from '../components/Login';
 import Auth from './Auth';
@@ -12,6 +13,7 @@ const App = () => (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/login" component={Login} />
+      <Route path="/verify-email" component={Verify} />
       <Route component={NotFound} />
     </Switch>
   </Router>
