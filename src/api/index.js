@@ -20,3 +20,4 @@ export const removeBookmark = article => client.delete('/bookmarks', {
     article
   }
 });
+export const fetchArticle = id => client.get(`/articles/${id}`);

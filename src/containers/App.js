@@ -5,6 +5,7 @@ import Verify from '../components/verifyPage';
 import NotFound from '../components/NotFound';
 import Login from '../components/Login';
 import Auth from './Auth';
+import Article from './FetchArticle';
 
 const App = () => (
 
@@ -14,6 +15,7 @@ const App = () => (
       <Route path="/" exact component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/verify-email" component={Verify} />
+      <Route path="/article/:id" component={Article} />
       <Route component={NotFound} />
     </Switch>
   </Router>
