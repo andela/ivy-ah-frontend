@@ -17,7 +17,8 @@ const BookmarkContainer = ({
     booked = bookmarks.some(bookmark => bookmark.article === articleId);
   }
 
-  const onClickBookmark = (bookmark) => {
+  const onClickBookmark = (bookmark, e) => {
+    e.stopPropagation();
     if (awaitingBooked) { return; }
     if (bookmark) {
       dispatch(addBookmarks(articleId));

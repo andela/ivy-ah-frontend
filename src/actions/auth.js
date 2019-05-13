@@ -56,7 +56,9 @@ export const logIn = (email, password) => (dispatch) => {
     .then((response) => {
       const { userid, token } = response.data.user;
       if (!response.data.user.isVerified) {
-        dispatch(verifyEmail(response.data.user.email));
+        // due to the current issues with sendgrid, users are authenticated without verification
+        // dispatch(verifyEmail(response.data.user.email));
+        dispatch(authSuccess(token, userid, response.data.user.email));
       } else {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         dispatch(authSuccess(token, userid, response.data.user.email));
