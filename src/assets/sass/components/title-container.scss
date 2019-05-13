@@ -1,0 +1,336 @@
+$fsize: 1rem;
+$imp: !important;
+
+.main-header-container {
+  width: 100%;
+  position: relative;
+  padding: 1.5rem 0 2rem 0;
+  border-bottom: 1px solid transparent;
+  background-image: url("components/assets/header-background.jpg");
+  background-size:60%;
+}
+
+.ui.grid.header-title-container {
+  display: none;
+  margin-bottom: $fsize;
+}
+
+.header-title-container-mobile {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 2.5rem;
+  font-size:1.2em;
+  align-items: center;
+  & > *, & .bars.icon.bars {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.bars.icon.bars {
+  color: #3157be;
+}
+
+.header-search {
+  background-position: center;
+}
+
+.ui.grid.header-title-container > .column.header-title-small {
+  width: 50%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #4e4e4e;
+}
+
+.ui.grid.header-title-container > .header-button-top {
+  width: 50%;
+  padding: 0 1em;
+}
+
+.header-button-container {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ui.container.header-container {
+  margin-top: 2rem;
+  width: 50%;
+  max-width: 42.15rem $imp;
+  margin-left: auto $imp;
+  margin-right: auto $imp;
+  padding: 0 1em;
+}
+
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+  .ui.container {
+    width: 50%;
+    max-width: 42rem $imp;
+  }
+}
+
+.ui.header.header-title {
+  font-family: Tahoma;
+  font-size: 1.6em;
+  margin-top: 0px $imp;
+}
+
+.ui.divider.header-divider {
+  color: #3157be;
+  border-top: 1px solid #3157be $imp;
+  border-bottom: 1px solid #3157be $imp;
+  width: 70%;
+  min-width: 21rem;
+  margin: 1rem auto;
+}
+
+.header-slogan {
+  font-size: 1.1rem;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  margin-bottom: 0.87rem;
+}
+
+.ui.primary.button.header-button {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.04rem;
+  color: #ffffff;
+  background-color: #3157be;
+  border-radius: 3px;
+  margin: 0;
+  transition: all 0.3s linear;
+  &:hover {
+    background-color: #274eb9;
+  }
+}
+
+.ui.primary.button.header-signup {
+  font-size: 0.8em;
+  background-color: #3157be;
+  border: 1px solid #3157be;
+  margin: 0;
+  margin-left: 1rem;
+  border-radius: 0;
+  height: 100%;
+  width: 9rem;
+  transition: box-shadow 0.4s ease-in-out;
+  box-shadow: 0 0px 0px 0 #0000003d;
+  &:hover {
+    box-shadow: 0 12px 16px 0 #0000003d;
+  }
+}
+
+.ui.primary.button.header-signin {
+  font-size: 0.8em;
+  color: #3157be;
+  background-color: #ffffff;
+  border: 1px solid #3157be;
+  margin: 0;
+  margin-left: 1rem;
+  border-radius: 0;
+  height: 100%;
+  width: 9rem;
+  transition: box-shadow 0.4s linear;
+  box-shadow: 0 0px 0px 0 #0000003d;
+  &:hover {
+    box-shadow: 0 12px 16px 0 #0000003d;
+  }
+}
+
+.header-search {
+  font-size: 0.8em;
+  color: #3157be;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  height: 100%;
+  min-height: 2em;
+  min-width: 2em;
+  background-image: url("components/assets/searching-magnifying-glass.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.main-category-container {
+  display: none;
+  padding: 0 15px;
+}
+
+.category-container {
+  position: relative;
+  display: flex;
+  height: 3.5rem;
+  margin: 4.25rem auto 0 auto;
+  border: 1px solid #0000001a;
+  max-width: 84rem;
+  text-align: center;
+}
+
+.outer-category-container {
+  margin: auto; 
+  height: 100%;
+  width: 100%;
+}
+
+.inner-category-container {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2em;
+  height: 100%;
+
+
+  & button:first-child {
+    margin-left: 1em $imp;
+  }
+
+  & button:last-child {
+    margin-right: 1em $imp;
+  }
+}
+
+.outer-category-container > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+  background-color: #3157be91;
+  max-width: 100px;
+  min-width: 100px;
+  border-radius: 30px;
+  &:hover {
+    background-color: #3157be91;
+    transform: scale(1.2);
+  }
+  &:focus {
+    background-color: #3157be;
+  }
+  &.active {
+    background-color: #3157be;
+  }
+}
+
+.outer-category-container > .os-scrollbar-horizontal {
+  height: 7px;
+}
+
+.ui.primary.button.header-category, .header-category {
+  background-color: transparent;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.2rem;
+  line-height: 2.5rem;
+  color: #a7a7ae;
+  padding: 0;
+  transition: transform 0.3s ease-in-out;
+  margin: 0 2%;
+  outline: none;
+  cursor: pointer;
+}
+
+.direction-button {
+  background: transparent;
+  border: none;
+  font-size: 1.8em;
+  outline: none;
+  color: #3157be;
+
+  &.right {
+    margin-right: 3rem;
+  }
+
+  &.left {
+    margin-left: 3rem;
+  }
+
+  &:disabled {
+    color: #3157be91;
+  }
+}
+
+.ui.primary.button.header-category:last-child::after {
+  content: '';
+  display: block;
+  width : 2em;
+}
+
+.ui.primary.button.header-category:hover {
+  color: black;
+}
+
+.main-category-container-mobile {
+  margin-top: 0.6rem;
+}
+
+.category-container-mobile {
+  display: grid;
+  grid-auto-flow: column;
+  padding: 0 1em;
+
+  & button {
+    border: none;
+    border-bottom: 1px solid #D0D0D0;
+    margin: 0;
+    font-size: 0.8em;
+
+    &:focus {
+      border-bottom: 1px solid black;
+    }
+  }
+}
+
+@media only screen and (min-width: 590px) {
+  .main-category-container {
+    display: block;
+  }
+
+  .main-category-container-mobile {
+    display: none;
+  }
+
+  .ui.grid.header-title-container {
+    display: block;
+  }
+
+  .header-title-container-mobile {
+    display: none;
+  }
+
+  .main-header-container {
+    background-size: 30%;
+  }
+
+  .header-search {
+    height: 3em;
+    width: 2em;
+  }
+}
+
+.background.effect {
+  top: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #c4c4c480;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+
+  &.show {
+    opacity: 1;
+    animation: backgroundEffect 1s ease-in-out;
+  }
+}
+
+@keyframes backgroundEffect {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+};
