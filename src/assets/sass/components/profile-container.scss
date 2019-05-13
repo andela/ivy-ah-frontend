@@ -1,0 +1,113 @@
+div.profile-container {
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+  margin-left: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+button.profile-inner-container {
+  border: 1px solid #3157be;
+  width: 3em;
+  height: 3em;
+  border-radius: 100%;
+  padding: 0;
+  outline: none;
+}
+
+div.profile-content-list {
+  width: max-content;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+  overflow-y: hidden;
+}
+
+div.test-content-profile {
+  width: 100%;
+  height: max-content;
+  position: relative;
+}
+
+.profile-menu-content {
+  display: block;
+  border: none;
+  padding: 0.7em;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  background: white;
+
+  &.first {
+    border-bottom: 1px solid #C4C4C4;
+    display: flex;
+    align-items: center;
+  }
+};
+
+
+.profile-menu-image {
+  display: inline-block;
+  border: 1px solid #3157be;
+  width: 3em;
+  height: 3em;
+  border-radius: 100%;
+  padding: 0;
+}
+
+.profile-menu-name {
+  margin-left: 1em;
+}
+
+.profile-content-arrow {
+  height: 1rem;
+  width: 1rem;
+  position: relative;
+  transform: rotate(45deg);
+  bottom: -0.5rem;
+  right: calc(-100% + 1.9rem);
+  background: white;
+}
+
+.profile-content-container {
+  border: 1px solid #cccccd;
+};
+
+.side-menu.profile-content-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 80%;
+  left: -100%;
+  background: white;
+  padding: 1em;
+  transition: left 0.5s ease-in-out;
+}
+
+@media only screen and (max-width: 590px) {
+  div.profile-container {
+    height: max-content;
+    width: 100%;
+    margin: 0;
+    padding: 1em;
+    justify-content: center;
+  }
+
+  .profile-content-arrow {
+    display: none;
+  }
+
+  div.test-content-profile {
+    height: 100%;
+  }
+
+  .profile-content-container {
+    height: 100%;
+    border: none;
+  }
+}

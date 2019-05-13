@@ -1,0 +1,86 @@
+.side-menu-container {
+  position: fixed;
+  left: -100%;
+  top: 0;
+  height: 100%;
+  width: 80%;
+  background: white;
+  z-index: 3;
+  transition: left 0.5s ease-in-out;
+  display: grid;
+  grid-auto-rows: min-content;
+  padding: 1em;
+  letter-spacing: 0.04em;
+}
+
+.side-menu-btn, .close-menu-button {
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 1.2em;
+}
+
+.close-menu-button.container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-container.side-menu {
+  display: grid;
+  height: min-content;
+}
+
+.auth-container > button.side-menu {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  border-radius: 0;
+  width: 100%;
+  margin: 0.7rem auto;
+  border: 1px solid #3157be;
+  height: min-content;
+}
+
+.signin-btn.side-menu {
+  color: #3157be;
+  background-color: #ffffff;
+  transition: box-shadow 0.4s linear;
+  
+}
+
+.auth-container > .signup-btn.side-menu {
+  color: #ffffff;
+  background-color: #3157be;
+  transition: all 0.3s linear;
+  margin-bottom: 1.4rem;
+}
+
+.side-menu.button.primary {
+  border: none;
+  background: transparent;
+  border-bottom: 0.5px solid #D0D0D0;
+  height: 3rem;
+  padding-left: 0;
+  width: 100%;
+  outline: none;
+  text-align: left;
+}
+
+.side-menu.button.primary.category, .side-menu.button.primary.upgrade {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.side-menu.button.primary.upgrade > i {
+  color: #FBCE2F;
+}
+
+.side-menu.footer.text {
+  font-size: 80%;
+  border: none;
+  color: #636363;
+  margin-top: 0.7rem;
+}

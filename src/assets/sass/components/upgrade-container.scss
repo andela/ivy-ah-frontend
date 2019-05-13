@@ -1,0 +1,44 @@
+$fsize: 1em;
+
+.main-upgrade-container {
+  padding: 4em;
+  background: #f2f2f2;
+  background-image: url('components/assets/upgrade-background.jpg');
+  background-size: 10%;
+  background-position-x: -20 * $fsize;
+  background-position-y: -7 * $fsize;
+}
+
+.ui.header.upgrade-text {
+  font-family: Tahoma;
+  font-size: 1.5rem;
+
+  span {
+    color: #3157BE;
+  }
+}
+
+.upgrade-slogan {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.2 * $fsize;
+  line-height: 43px;
+  color: #333333;
+}
+
+.ui.primary.button.upgrade-button {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2 * $fsize;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  background-color: #3157BE;
+  border-radius: 3px;
+  margin: 0;
+  transition: all 0.3s linear;
+  &:hover {
+    background-color: #274eb9;
+  }
+}
