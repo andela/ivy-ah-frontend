@@ -63,11 +63,11 @@ describe('Auth reducer', () => {
   const initialState = {
     token: null,
     userId: null,
-    userEmail: null,
+    email: null,
     error: null,
     verified: false,
     loading: false,
-    authRedirectPath: '/',
+    shouldRedirect: false,
     openModal: false,
     modalPane: 'sign in'
   };
@@ -76,11 +76,11 @@ describe('Auth reducer', () => {
     expect(AuthReducer(undefined, {})).toEqual({
       token: null,
       userId: null,
-      userEmail: null,
+      email: null,
       error: null,
       verified: false,
       loading: false,
-      authRedirectPath: '/',
+      shouldRedirect: false,
       openModal: false,
       modalPane: 'sign in'
     });
@@ -95,21 +95,21 @@ describe('Auth reducer', () => {
   });
 
   it('it should store the token, user-email, user-id in the state', () => {
-    expect(AuthReducer(initialState, actions.signUpSuccess('some-token', 'some-id', 'some-email'))).toEqual({
+    expect(AuthReducer(initialState, actions.authSuccess('some-token', 'some-id', 'some-email'))).toEqual({
       token: 'some-token',
       userId: 'some-id',
-      userEmail: 'some-email',
+      email: 'some-email',
       modalPane: 'sign in',
       openModal: false,
       error: null,
       verified: false,
       loading: false,
-      authRedirectPath: '/'
+      shouldRedirect: false,
     });
   });
 
   it('it should add the error message to the state', () => {
-    expect(AuthReducer(initialState, actions.signUpFail({ email: 'please provide a valid email' }))).toEqual({
+    expect(AuthReducer(initialState, actions.authFail({ email: 'please provide a valid email' }))).toEqual({
       ...initialState,
       error: { email: 'please provide a valid email' },
       loading: false,
@@ -129,20 +129,19 @@ describe('Auth reducer', () => {
     expect(AuthReducer({
       token: null,
       userId: null,
-      userEmail: null,
+      email: null,
       error: null,
       verified: false,
       loading: false,
-      authRedirectPath: '/',
       openModal: true,
-      modalPane: 'sign in'
+      modalPane: 'sign in',
+      shouldRedirect: false,
     }, actions.toggleModal('sign up'))).toEqual({
       ...initialState,
       modalPane: 'sign up',
       openModal: false
     });
   });
-
 
   it('it should signup a user', () => {
     fetchMock.post('https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/signup', {
@@ -158,14 +157,37 @@ describe('Auth reducer', () => {
       auth: {
         token: null,
         userId: null,
-        userEmail: null,
+        email: null,
         error: null,
         verified: false,
         loading: false,
-        authRedirectPath: '/'
       }
     });
     store.dispatch(actions.signUp('innocent', 'element', 'eme@gmail.com', 'ssssssss'));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('it should login a user', () => {
+    fetchMock.post('https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/login', {
+      response: { userid: 'some-id', token: 'some-t' },
+      headers: { 'content-type': 'application/json' }
+    });
+
+    const expectedActions = [
+      { type: types.AUTH_LOADING },
+    ];
+
+    const store = mockStore({
+      auth: {
+        token: null,
+        userId: null,
+        email: null,
+        error: null,
+        verified: false,
+        loading: false,
+      }
+    });
+    store.dispatch(actions.logIn('eme@gmail.com', 'ssssssss'));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
@@ -193,22 +215,30 @@ describe('Auth actions', () => {
     expect(actions.toggleModal()).toEqual(expectedAction);
   });
 
-  it('should create an action of the type SIGNUP_SUCCESS', () => {
+  it('should create an action of the type AUTH_SUCCESS', () => {
     const expectedAction = {
-      type: types.SIGNUP_SUCCESS,
+      type: types.AUTH_SUCCESS,
       userId: 'some-id',
-      userEmail: 'some-email',
+      email: 'some-email',
       token: 'some-token'
     };
-    expect(actions.signUpSuccess('some-token', 'some-id', 'some-email')).toEqual(expectedAction);
+    expect(actions.authSuccess('some-token', 'some-id', 'some-email')).toEqual(expectedAction);
   });
 
-  it('should create an action of the type SIGNUP_FAIL', () => {
+  it('should create an action of the type AUTH_FAIL', () => {
     const expectedAction = {
-      type: types.SIGNUP_FAIL,
+      type: types.AUTH_FAIL,
       error: { email: 'please provide email' }
 
     };
-    expect(actions.signUpFail({ email: 'please provide email' })).toEqual(expectedAction);
+    expect(actions.authFail({ email: 'please provide email' })).toEqual(expectedAction);
+  });
+
+  it('should create an action of the type VERIFY_EMAIL', () => {
+    const expectedAction = {
+      type: types.VERIFY_EMAIL,
+      email: 'mail@mail.com'
+    };
+    expect(actions.verifyEmail('mail@mail.com')).toEqual(expectedAction);
   });
 });

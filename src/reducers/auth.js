@@ -3,13 +3,13 @@ import * as actions from '../actions/actionTypes';
 const initialState = {
   token: null,
   userId: null,
-  userEmail: null,
+  email: null,
   error: null,
   verified: false,
   loading: false,
-  authRedirectPath: '/',
   openModal: false,
-  modalPane: 'sign in'
+  modalPane: 'sign in',
+  shouldRedirect: false
 };
 
 const authLoading = state => ({
@@ -19,17 +19,18 @@ const authLoading = state => ({
   loading: true
 });
 
-const signupSuccess = (state, action) => ({
+const authSuccess = (state, action) => ({
   ...state,
   token: action.token,
   userId: action.userId,
-  userEmail: action.userEmail,
+  email: action.email,
   verified: false,
+  openModal: false,
   loading: false,
   error: null
 });
 
-const signupFail = (state, action) => ({
+const authFail = (state, action) => ({
   ...state,
   error: action.error,
   openModal: true,
@@ -42,12 +43,19 @@ const toggleModal = (state, action) => ({
   modalPane: action.modalPane
 });
 
+const verifyEmail = (state, action) => ({
+  ...state,
+  shouldRedirect: true,
+  email: action.email
+});
+
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.AUTH_LOADING: return authLoading(state, action);
-    case actions.SIGNUP_SUCCESS: return signupSuccess(state, action);
-    case actions.SIGNUP_FAIL: return signupFail(state, action);
+    case actions.AUTH_SUCCESS: return authSuccess(state, action);
+    case actions.AUTH_FAIL: return authFail(state, action);
     case actions.TOGGLE_MODAL: return toggleModal(state, action);
+    case actions.VERIFY_EMAIL: return verifyEmail(state, action);
     default:
       return state;
   }

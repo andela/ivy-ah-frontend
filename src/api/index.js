@@ -12,6 +12,7 @@ export const client = axios.create({
   },
 });
 export const signup = params => client.post('/users/signup', params);
+export const login = params => client.post('/users/login', params);
 export const fetchBookmarks = () => client.get('/bookmarks');
 export const addBookmark = article => client.post('/bookmarks', { article });
 export const removeBookmark = article => client.delete('/bookmarks', {
