@@ -9,7 +9,11 @@ const CategoryMenuBtn = ({ onOpenMenu }) => (
 );
 
 CategoryMenuBtn.propTypes = {
-  onOpenMenu: propTypes.func.isRequired
+  onOpenMenu: propTypes.func
+};
+
+CategoryMenuBtn.defaultProps = {
+  onOpenMenu: null
 };
 
 export default CategoryMenuBtn;
