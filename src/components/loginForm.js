@@ -87,6 +87,7 @@ const loginForm = ({
                 {loggedIn ? 'Log in successful' : 'Log in'}
               </Button>
             </Form.Field>
+            <a style={{ textAlign: 'center', cursor: 'pointer', display: 'block' }} href="/forgotPassword">Forgot Password?</a>
           </Form>
         </div>
       );
