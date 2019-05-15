@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
 const userObject = JSON.parse(localStorage.getItem('user'));
-const token = userObject ? userObject.token : null;
+const token = userObject ? userObject.token : '';
 export const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
