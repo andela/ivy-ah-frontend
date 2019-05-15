@@ -9,3 +9,16 @@
 @import "./components/form";
 @import "./pages/verify";
 @import url('./pages/article.scss');
+@import "./components/title-container.scss";
+@import "./components/upgrade-container.scss";
+@import "./components/footer-container.scss";
+@import "./components/side-menu.scss";
+@import "./components/category-menu.scss";
+@import "./components/profile-container.scss";
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+ $primary-color: #11044e;
+@import "./components/article-preview.scss";
+
+ $primary-color: #ffffff;
+$second-color: #008000;

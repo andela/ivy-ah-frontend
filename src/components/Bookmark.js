@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Bookmark = ({ bookmark, onClickBookmark }) => (
-  <button type="button" className="bookmark-button" onClick={() => onClickBookmark(!bookmark)}>
+  <button type="button" className="bookmark-button" onClick={e => onClickBookmark(!bookmark, e)}>
     <i className={bookmark ? 'bookmark icon' : 'bookmark outline icon'} />
   </button>
 );
