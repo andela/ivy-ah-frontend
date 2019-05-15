@@ -96,6 +96,21 @@
   line-height: 27px;
   color: #3157BE;
 }
+.hype-grey{
+  fill: grey !important;
+}
+.hype-blue{
+  fill: blue !important;
+}
+.rating{
+  float: right;
+  margin-left: auto;
+  margin-right: 30px;
+  height: 25px;
+}
+.rating-hype{
+  cursor: pointer;
+}
 
 .tags {
   margin: 20px 0;

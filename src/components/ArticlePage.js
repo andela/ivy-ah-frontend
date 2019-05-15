@@ -5,14 +5,17 @@ import ArticleContent from './ArticleContent';
 import ArticleMetadata from './ArticleMetadata';
 import ArticleTag from './ArticleTag';
 import AuthorMetadata from './AuthorMetadata';
+import Ratings from './Ratings';
 
-const ArticlePage = ({ article: { data }, loading, error }) => {
+const ArticlePage = ({
+  article: { data }, totalArticleHype, loading, error
+}) => {
   if (error) {
     return (<Redirect to="/notFound" />);
   }
   return (data ? (
     <div className="article-page">
-      <ArticleMetadata data={data} />
+      <ArticleMetadata data={data} totalArticleHype={totalArticleHype} />
       <ArticleContent className="article-body" body={data.body} />
       <div className="tags">
         <ArticleTag tagList={data.tagList} />
@@ -20,6 +23,7 @@ const ArticlePage = ({ article: { data }, loading, error }) => {
       <div className="ui grid">
         <div className="four column row bio-ratings">
           <AuthorMetadata user={data.user} className="left floated column" />
+          <Ratings />
         </div>
       </div>
     </div>
@@ -31,12 +35,14 @@ ArticlePage.propTypes = {
     data: PropTypes.object,
   }).isRequired,
   loading: PropTypes.bool,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  totalArticleHype: PropTypes.number
 };
 
 ArticlePage.defaultProps = {
   loading: true,
-  error: false
+  error: false,
+  totalArticleHype: 0
 };
 
 export default ArticlePage;

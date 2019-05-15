@@ -15,6 +15,11 @@ export const fetchArticleFailed = error => ({
   payload: { error }
 });
 
+export const updateArticleHype = totalRating => ({
+  type: actions.FETCH_ARTICLE_HYPE_SUCCESS,
+  payload: { totalRating }
+});
+
 export const fetchArticle = id => (dispatch) => {
   dispatch(fetchArticleStarted());
   return api.fetchArticle(id)
@@ -22,4 +27,11 @@ export const fetchArticle = id => (dispatch) => {
       dispatch(fetchArticleSucceeded(response.data));
     })
     .catch(error => dispatch(fetchArticleFailed(error)));
+};
+
+export const fetchArticleHype = articleId => (dispatch) => {
+  api.fetchLatestArticleHype(articleId)
+    .then((response) => {
+      dispatch(updateArticleHype(response.data.data.totalRating));
+    });
 };

@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { createStore } from 'redux';
 import * as api from '../src/api';
@@ -64,6 +64,14 @@ describe('Test single article reducer', () => {
     loading: false
   };
 
+  it('should update article hype', () => {
+    expect(singleArticleReducer(initialArticleState, articleActions.updateArticleHype(13)))
+      .toEqual({
+        ...initialArticleState,
+        totalArticleHype: 13
+      });
+  });
+
   it('should return loading when passed FETCH_ARTICLE_STARTED', () => {
     const action = articleActions.fetchArticleStarted();
     const newState = singleArticleReducer(initialArticleState, action);
@@ -75,11 +83,17 @@ describe('Test single article reducer', () => {
   });
   it('should return an article when passed FETCH_ARTICLE_SUCCEEDED', () => {
     const article = {
-      title: 'My first article'
+      title: 'My first article',
+      ratings: 1,
+      data: {
+        ratings: 3
+      }
     };
     const action = articleActions.fetchArticleSucceeded(article);
     const newState = singleArticleReducer(initialArticleState, action);
-    expect(newState).toEqual({ loading: false, article, error: false });
+    expect(newState).toEqual({
+      loading: false, article, error: false, totalArticleHype: 3
+    });
   });
 
   it('should return an error when passed FETCH_ARTICLE_FAILED', () => {
@@ -125,8 +139,8 @@ describe('<Article />', () => {
       },
       fetchArticle: jest.fn()
     };
-    const wrapper = mount(<Article {...props} />);
-    expect(wrapper.find('h1').text()).toEqual('My First Article');
+    const wrapper = shallow(<Article {...props} />);
+    expect(wrapper.find('.article-view').length).toEqual(1);
   });
 });
 
@@ -220,7 +234,10 @@ describe('Test Store', () => {
       loading: false
     };
     const article = {
-      title: 'My first article'
+      title: 'My first article',
+      data: {
+        ratings: 3
+      }
     };
     const store = createStore(singleArticleReducer, initialArticleState);
     const action = articleActions.fetchArticleSucceeded(article);
