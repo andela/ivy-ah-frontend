@@ -1,5 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import CategoryMenuContainer from '../containers/CategoryMenuContainer';
+import AuthButtonContainer from '../containers/AuthButtonContainer';
 
 const SideMenu = ({ onCloseMenu, setMenuRef, closeMenu }) => (
   <div ref={setMenuRef} onTransitionEnd={closeMenu} className="side-menu-container">
@@ -8,6 +10,13 @@ const SideMenu = ({ onCloseMenu, setMenuRef, closeMenu }) => (
         <i className="angle left icon" />
       </button>
     </div>
+    <AuthButtonContainer
+      onClick={onCloseMenu}
+      loginClass="ui button signin-btn side-menu"
+      signupClass="ui button signup-btn side-menu"
+      containerClass="auth-container side-menu"
+    />
+    <CategoryMenuContainer />
     <button type="button" className="side-menu button primary upgrade">
       Upgrade to premium
       <i className="star icon" />
