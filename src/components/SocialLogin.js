@@ -6,12 +6,14 @@ import Button from './Button';
 
 const SocialLogin = ({ buttonArray = [] }) => {
   const socialButtons = buttonArray.map((button, index) => (
-    <Button key={v4()} type={button.type}>
-      <Icon size="large" name={button.icon} style={button.iconStyle} />
-      <span style={{ fontWeight: '400' }}>
-        {button.callToAction}
-      </span>
-    </Button>
+    <a href={button.url}>
+      <Button key={v4()} type={button.type}>
+        <Icon size="large" name={button.icon} style={button.iconStyle} />
+        <span style={{ fontWeight: '400' }}>
+          {button.callToAction}
+        </span>
+      </Button>
+    </a>
   ));
   return <div>{socialButtons}</div>;
 };
