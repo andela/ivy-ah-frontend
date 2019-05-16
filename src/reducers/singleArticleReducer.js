@@ -9,6 +9,7 @@ import {
 
 const initialArticleState = {
   article: {},
+  comments: [],
   error: false,
   loading: false,
   totalArticleHype: 0,
@@ -27,7 +28,7 @@ const singleArticleReducer = (state = initialArticleState, action) => {
         ...state,
         loading: false,
         article: action.payload.article,
-        totalArticleHype: action.payload.article.data.ratings
+        totalArticleHype: action.payload.article.data.ratings,
       };
     case FETCH_ARTICLE_FAILED:
       return {

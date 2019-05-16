@@ -17,7 +17,7 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpeg|jpg|gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
@@ -26,13 +26,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/i,
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
         use: [
           {
-            loader: 'url-loader',
-            options: {
-              limit: 10000
-            }
+            loader: 'file-loader',
           }
         ]
       },

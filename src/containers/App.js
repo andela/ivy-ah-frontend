@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Verify from 'Components/verifyPage';
 import NotFound from 'Components/NotFound';
@@ -13,13 +14,21 @@ import Footer from 'Components/Footer';
 import Articles from 'Containers/ArticleContainer';
 import { profileRedirect } from '../helpers/profileHelper';
 import createArticlePage from '../components/createArticlespage';
+import CommentContainer from './CommentContainer';
 
-const article = () => (
+const articles = () => (
   <div>
     <ArticleHeader />
     <Articles />
     <Footer />
     <div style={{ display: 'none' }} id="background" className="background effect" />
+  </div>
+);
+
+const singleArticle = ({ match }) => (
+  <div className="article-view">
+    <Article match={match} />
+    <CommentContainer />
   </div>
 );
 
@@ -31,9 +40,9 @@ const App = () => (
       <Route path="/forgotPassword" exact component={ForgotPasswordContainer} />
       <Route path="/resetPassword" exact component={ResetPasswordContainer} />
       <Route path="/requestSent" exact component={PasswordLinkSent} />
-      <Route path="/" exact component={article} />
+      <Route path="/" exact component={articles} />
       <Route path="/verify-email" component={Verify} />
-      <Route path="/article/:id" component={Article} />
+      <Route path="/article/:id" component={singleArticle} />
       <Route
         exact
         path="/profileRedirect/:id"
@@ -50,5 +59,9 @@ const App = () => (
     </Switch>
   </Router>
 );
+
+singleArticle.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
 export default App;
