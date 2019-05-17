@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileArticleCard/> Should match the snapshot 1`] = `
+<div
+  className="column"
+>
+  <a
+    href="/article/someid"
+    onClick={[Function]}
+  >
+    <div
+      className="profile-article"
+      style={
+        Object {
+          "display": "block",
+        }
+      }
+    >
+      <div
+        className="ui cards"
+      >
+        <div
+          className="profile-article-wrapper"
+        >
+          <img
+            className="ui avatar left floated image profile-article-user-image"
+            src="someUrl"
+          />
+          <span
+            className="profile-article-user-name"
+          >
+            undefined anothername
+          </span>
+          <p
+            className="profile-article-readtime"
+          >
+             
+            &lt; 1 min read
+          </p>
+        </div>
+        <div
+          style={
+            Object {
+              "backgroundImage": "url(undefined)",
+              "backgroundPosition": "center",
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "cover",
+              "height": "10rem",
+              "minWidth": "100%",
+              "overflow": "hidden",
+            }
+          }
+        >
+          \`
+        </div>
+        <div
+          className="w-100"
+        >
+          <div
+            className="detail-container"
+          >
+            <p
+              style={
+                Object {
+                  "color": "black",
+                }
+              }
+            />
+            <div
+              className="article-hypes"
+            >
+              <span
+                style={
+                  Object {
+                    "color": "blue",
+                  }
+                }
+              >
+                undefined hypes
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`<ProfileFollowingCard/> Should match the snapshot 1`] = `
+<div
+  className="column"
+>
+  <a
+    href="/profileRedirect/someid"
+    onClick={[Function]}
+  >
+    <div
+      style={
+        Object {
+          "marginBottom": "2rem",
+        }
+      }
+    >
+      <div
+        className="ui fluid card"
+        onClick={[Function]}
+      >
+        <div
+          className="content"
+        >
+          <img
+            className="ui small circular left floated image"
+            src="someurl"
+            style={
+              Object {
+                "marginRight": "2rem",
+                "width": "6rem",
+              }
+            }
+          />
+          <div
+            className="header"
+            style={
+              Object {
+                "paddingBottom": "0.3rem",
+                "paddingTop": "0.7rem",
+              }
+            }
+          >
+            somelastname anyname
+          </div>
+          <div
+            className="meta"
+            style={
+              Object {
+                "paddingBottom": "0.5rem",
+              }
+            }
+          >
+            joined Authors' haven 
+          </div>
+          <div
+            className="meta"
+          >
+            Following
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`<ProfileFollowingCard/> Should match the snapshot 2`] = `
+<div
+  className="profile"
+>
+  <img
+    className="ui medium circular fluid image"
+    src="someurl"
+    style={
+      Object {
+        "margin": "0 auto",
+      }
+    }
+  />
+  <div
+    className="ui huge header profile-username"
+  >
+    anyname somelastname
+  </div>
+  <p>
+    Been on Authors' Haven
+    <span
+      style={
+        Object {
+          "display": "block",
+        }
+      }
+    >
+      since
+       
+      undefined NaN, NaN
+    </span>
+  </p>
+  <button
+    className="ui button btn blueButton"
+    onClick={[Function]}
+  >
+    Follow
+  </button>
+</div>
+`;

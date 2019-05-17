@@ -10,6 +10,8 @@ import PasswordLinkSent from 'Components/PasswordLinkSent';
 import Auth from 'Containers/Auth';
 import Article from 'Containers/FetchArticle';
 import Profile from 'Containers/Profile';
+import { profileRedirect } from '../helpers/profileHelper';
+
 
 const App = () => (
 
@@ -23,7 +25,16 @@ const App = () => (
       <Route path="/login" component={Login} />
       <Route path="/verify-email" component={Verify} />
       <Route path="/article/:id" component={Article} />
-      <Route path="/profile" component={Profile} />
+      <Route
+        exact
+        path="/profileRedirect/:id"
+        component={profileRedirect}
+      />
+      <Route
+        path="/profile/:id"
+        component={Profile}
+      />
+      <Route path="/notfound" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   </Router>
