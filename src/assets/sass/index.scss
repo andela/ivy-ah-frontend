@@ -16,9 +16,6 @@
 @import "./components/category-menu.scss";
 @import "./components/profile-container.scss";
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-
- $primary-color: #11044e;
 @import "./components/article-preview.scss";
-
- $primary-color: #ffffff;
-$second-color: #008000;
+@import './pages/create-article';
+@import url('./pages/article.scss');

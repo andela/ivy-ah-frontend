@@ -6,7 +6,7 @@ import bookmarkReducer from './bookmark';
 import passwordReducer from './forgotpassword';
 import resetReducer from './resetPassword';
 import profileReducer from './profile';
-
+import createArticleReducer from './articlesReducer';
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   resetPassword: resetReducer,
   profile: profileReducer,
   articleReducer,
+  createArticleReducer
 });
 
 export default rootReducer;

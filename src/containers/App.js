@@ -12,6 +12,7 @@ import ArticleHeader from 'Components/ArticleHeader';
 import Footer from 'Components/Footer';
 import Articles from 'Containers/ArticleContainer';
 import { profileRedirect } from '../helpers/profileHelper';
+import createArticlePage from '../components/createArticlespage';
 
 const article = () => (
   <div>
@@ -44,6 +45,7 @@ const App = () => (
       />
       <Route path="/notfound" component={NotFound} />
       <Route path="/profile" component={Profile} />
+      <Route path="/createarticle" component={createArticlePage} />
       <Route component={NotFound} />
     </Switch>
   </Router>
