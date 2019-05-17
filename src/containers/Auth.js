@@ -3,13 +3,13 @@ import { Tab, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Modal from '../components/AuthModal';
-import SignupForm from '../components/SignupForm';
-import LoginForm from '../components/loginForm';
-import AuthTab from '../components/AuthTab';
-import SocialLogin from '../components/SocialLogin';
-import { signUp, logIn, toggleModal } from '../actions/auth';
-import VerifyPage from '../components/verifyEmail';
+import Modal from 'Components/AuthModal';
+import SignupForm from 'Components/SignupForm';
+import LoginForm from 'Components/loginForm';
+import AuthTab from 'Components/AuthTab';
+import SocialLogin from 'Components/SocialLogin';
+import { signUp, logIn, toggleModal } from 'Actions/auth';
+import VerifyPage from 'Components/verifyEmail';
 
 
 const buttonArray = callToAction => (
