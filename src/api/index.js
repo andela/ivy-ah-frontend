@@ -2,13 +2,10 @@ import axios from 'axios';
 
 const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGVsYVM2NUBkYW5kZWxhLmNvbSIsImlkIjoiMmM0YTRlMjMtN2FmYS00Y2Y4LTg0ZjMtZDVhNDFkYjAxNGMyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE1NTgwMzY5OTh9.rrk2ZMbDzQvAwy9-XHPruTAkFo0rZkmEoT19W-loEBE';
-
 export const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token
   },
 });
 
@@ -23,13 +20,18 @@ export const resetPassword = params => axios({
   data: params
 });
 export const fetchBookmarks = () => client.get('/bookmarks');
+
 export const addBookmark = article => client.post('/bookmarks', { article });
+
 export const removeBookmark = article => client.delete('/bookmarks', {
   data: {
     article
   }
 });
+
 export const fetchArticle = id => client.get(`/articles/${id}`);
 export const fetchProfile = id => client.get(`/profiles/${id}`);
 export const fetchUserArticle = userId => client.get(`users/articles/${userId}`);
 export const fetchUserFollowers = authorId => client.get(`profiles/${authorId}/followers`);
+
+export const fetchArticles = (page, limit) => client.get('/articles/', { params: { page, limit } });

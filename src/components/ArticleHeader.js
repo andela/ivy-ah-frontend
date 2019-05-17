@@ -1,7 +1,7 @@
 import React from 'react';
 import CategoryContainer from './CategoryContainer';
 import CategoryContainerMobile from './CategoryContainerMobile';
-import SideMenuContainer from '../containers/SideMenuContainer';
+import SideMenuContainer from './SideMenuContainer';
 import AuthButtonContainer from '../containers/AuthButtonContainer';
 
 const header = () => (

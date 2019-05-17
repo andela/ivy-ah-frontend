@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import React from 'react';
 import { mount } from 'enzyme';
 import CategoryContainer from '../src/components/CategoryContainer';

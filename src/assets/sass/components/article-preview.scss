@@ -13,6 +13,7 @@
 .ui.card.article-card-small > .image {
   position: relative;
   height: 12.5rem;
+  overflow: hidden;
 }
 
 .ui.card.article-card-small > .image > img {
@@ -51,6 +52,7 @@
 .ui.card.article-card-large > .image {
   height: 26rem;
   position: relative;
+  overflow: hidden;
 }
 
 .ui.card.article-card-large > .image > img {
@@ -59,6 +61,12 @@
   border-radius: 0;
   object-fit: cover;
   position: absolute;
+
+  &.reveal {
+    will-change: transform, opacity;
+    z-index: 1;
+    animation: reveal 1s ease-in-out;
+  }
 }
 
 .ui.card > .image > div.image.error {
