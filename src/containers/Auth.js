@@ -11,20 +11,21 @@ import SocialLogin from 'Components/SocialLogin';
 import { signUp, logIn, toggleModal } from 'Actions/auth';
 import VerifyPage from 'Components/verifyEmail';
 
-
 const buttonArray = callToAction => (
   [
     {
       type: 'whiteButton',
       icon: 'facebook square',
       iconColor: 'blue',
-      callToAction: `${callToAction} Facebook`
+      callToAction: `${callToAction} Facebook`,
+      url: 'https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/facebook'
     },
     {
       type: 'whiteButton',
       icon: 'twitter',
       iconColor: 'blue',
-      callToAction: `${callToAction} Twitter`
+      callToAction: `${callToAction} Twitter`,
+      url: 'https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/twitter'
     }
   ]
 );
