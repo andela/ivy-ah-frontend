@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from '../components/Home';
-import Verify from '../components/verifyPage';
-import NotFound from '../components/NotFound';
-import Login from '../components/Login';
-import ForgotPasswordContainer from './ForgotPasswordContainer';
-import ResetPasswordContainer from './ResetPassordContainer';
-import PasswordLinkSent from '../components/PasswordLinkSent';
-import Auth from './Auth';
-import Article from './FetchArticle';
-import Profile from './Profile';
+import Home from 'Components/Home';
+import Verify from 'Components/verifyPage';
+import NotFound from 'Components/NotFound';
+import Login from 'Components/Login';
+import ForgotPasswordContainer from 'Containers/ForgotPasswordContainer';
+import ResetPasswordContainer from 'Containers/ResetPassordContainer';
+import PasswordLinkSent from 'Components/PasswordLinkSent';
+import Auth from 'Containers/Auth';
+import Article from 'Containers/FetchArticle';
+import Profile from 'Containers/Profile';
 
 const App = () => (
 

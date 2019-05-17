@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import hypeIcon from '../assets/sass/components/assets/hype-icon.svg';
+import hypeIcon from 'Assets/sass/components/assets/hype-icon.svg';
 
 const ArticleMetadata = ({
   data: {
