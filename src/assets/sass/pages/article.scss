@@ -45,6 +45,13 @@ div#root {
   }
 }
 
+.ui.button.follow {
+  padding: 0 !important;
+  height: 2.2rem;
+  width: 70%;
+  max-width: 10rem; 
+  border-radius: 1.6875px;
+}
 .main-editor img {
   max-width: 100% !important;
   height: auto !important;

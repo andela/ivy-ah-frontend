@@ -74,13 +74,6 @@ describe('<ProfileFollowingCard/>', () => {
     const wrapper = shallow(<ProfileUserCard profile={profile} signedInUser={signedInUser} />);
     expect(wrapper.find(<Grid.Column />));
   });
-
-  it('Should match the snapshot', () => {
-    const tree = renderer
-      .create(<ProfileUserCard profile={profile} signedInUser={signedInUser} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 });
 
 describe('Profile reducers', () => {

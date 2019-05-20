@@ -92,7 +92,7 @@ exports[`<ProfileFollowingCard/> Should match the snapshot 1`] = `
   className="column"
 >
   <a
-    href="/profileRedirect/someid"
+    href="/profile/someid"
     onClick={[Function]}
   >
     <div
@@ -149,58 +149,5 @@ exports[`<ProfileFollowingCard/> Should match the snapshot 1`] = `
       </div>
     </div>
   </a>
-</div>
-`;
-
-exports[`<ProfileFollowingCard/> Should match the snapshot 2`] = `
-<div
-  className="profile"
->
-  <label
-    htmlFor="profileimage"
-    id="label"
-    nesting={true}
-  >
-    <img
-      className="ui medium circular fluid image"
-      src="someurl"
-      style={
-        Object {
-          "margin": "0 auto",
-        }
-      }
-    />
-  </label>
-  <input
-    disabled={true}
-    hidden={true}
-    id="profileimage"
-    type="file"
-  />
-  <div
-    className="ui huge header profile-username"
-  >
-    anyname somelastname
-  </div>
-  <p>
-    Been on Authors' Haven
-    <span
-      style={
-        Object {
-          "display": "block",
-        }
-      }
-    >
-      since
-       
-      undefined NaN, NaN
-    </span>
-  </p>
-  <button
-    className="ui button btn blueButton"
-    onClick={[Function]}
-  >
-    Follow
-  </button>
 </div>
 `;

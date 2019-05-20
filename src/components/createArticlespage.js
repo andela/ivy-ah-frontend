@@ -9,6 +9,7 @@ import { WithContext as ReactTagInput } from 'react-tag-input';
 import { Editor } from 'react-draft-wysiwyg';
 import Textarea from 'react-textarea-autosize';
 import { createArticle } from '../actions/createArticleActions';
+import Header from './Header';
 
 const CreateArticlePage = (props) => {
   const [title, setTitle] = useState('');
@@ -73,63 +74,66 @@ const CreateArticlePage = (props) => {
   };
 
   return (
-    <div className="create-article-wrapper">
-      <div className="publish-wrapper">
-        <button className="article-button" type="submit" onClick={onSubmit}>Publish</button>
-      </div>
-      <div>
-        <Textarea className="article-title" name="title" onChange={onChange} placeholder="Title..." />
-      </div>
-      <Editor
-        toolbarOnFocus
-        editorClassName="main-editor"
-        placeholder="Write your story..."
-        editorState={editorState}
-        onEditorStateChange={onEditorStateChange}
-        toolbarClassName="editor-toolbar"
-        toolbar={{
-          options: ['inline', 'blockType', 'textAlign', 'colorPicker', 'link', 'emoji', 'image', 'history'],
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-          image: {
-            uploadCallback: uploadImageCallBack,
-            placeHolder: 'Write your story...',
-            previewImage: true,
-            inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
-            alignmentEnabled: false,
-            alt: { present: false, mandatory: false },
-            defaultSize: {
-              height: '500',
-              width: '1000',
-            },
-          }
-        }}
-      />
-      <ReactTagInput
-        tags={tags}
-        style={{ height: '30px', width: '99.5%' }}
-        handleDelete={handleDelete}
-        handleAddition={handleAddition}
-        handleDrag={handleDrag}
-        delimiters={[188, 13, 9, 32]}
-        placeholder="Add tags (maximum of 5tags)"
-        inputFieldPosition="inline"
-        classNames={{
-          tags: 'tagsClass',
-          tagInput: 'tagInputClass',
-          tagInputField: 'tag-input-field-class',
-          selected: 'selectedClass',
-          tag: 'tagClass',
-          remove: 'removeClass',
-          suggestions: 'suggestionsClass',
-          activeSuggestion: 'activeSuggestionClass'
-        }}
-      />
-      <div>
-        {(formError) ? <Message negative list={[formError]} /> : ''}
+    <div className="create-article-container">
+      <Header />
+      <div className="create-article-wrapper">
+        <div className="publish-wrapper">
+          <button className="article-button" type="submit" onClick={onSubmit}>Publish</button>
+        </div>
+        <div>
+          <Textarea className="article-title" name="title" onChange={onChange} placeholder="Title..." />
+        </div>
+        <Editor
+          toolbarOnFocus
+          editorClassName="main-editor"
+          placeholder="Write your story..."
+          editorState={editorState}
+          onEditorStateChange={onEditorStateChange}
+          toolbarClassName="editor-toolbar"
+          toolbar={{
+            options: ['inline', 'blockType', 'textAlign', 'colorPicker', 'link', 'emoji', 'image', 'history'],
+            inline: { inDropdown: true },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+            image: {
+              uploadCallback: uploadImageCallBack,
+              placeHolder: 'Write your story...',
+              previewImage: true,
+              inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+              alignmentEnabled: false,
+              alt: { present: false, mandatory: false },
+              defaultSize: {
+                height: '500',
+                width: '1000',
+              },
+            }
+          }}
+        />
+        <ReactTagInput
+          tags={tags}
+          style={{ height: '30px', width: '99.5%' }}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleDrag={handleDrag}
+          delimiters={[188, 13, 9, 32]}
+          placeholder="Add tags (maximum of 5tags)"
+          inputFieldPosition="inline"
+          classNames={{
+            tags: 'tagsClass',
+            tagInput: 'tagInputClass',
+            tagInputField: 'tag-input-field-class',
+            selected: 'selectedClass',
+            tag: 'tagClass',
+            remove: 'removeClass',
+            suggestions: 'suggestionsClass',
+            activeSuggestion: 'activeSuggestionClass'
+          }}
+        />
+        <div>
+          {(formError) ? <Message negative list={[formError]} /> : ''}
+        </div>
       </div>
       <ToastContainer position="top-center" />
     </div>

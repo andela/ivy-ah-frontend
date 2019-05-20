@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Follow from '../containers/Follow';
 
 const AuthorMetadata = ({
   user: {
-    username, bio, image, firstname
+    username, bio, image, firstname, id
   }
 }) => (
   <div className="author-metadata">
@@ -23,7 +24,7 @@ const AuthorMetadata = ({
       <br />
       {bio && <span className="bio">{bio}</span>}
       <br />
-      <button type="button" className="ui button follow">Follow</button>
+      <Follow authorId={id} />
     </div>
   </div>
 );

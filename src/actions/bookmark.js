@@ -18,13 +18,16 @@ export const fetchBookmarksSucceeded = bookmarks => ({
   payload: { bookmarks }
 });
 
-export const fetchBookmarks = updateProfileBookmarkTab => dispatch => api.fetchBookmarks()
-  .then((res) => {
-    dispatch(fetchBookmarksSucceeded(res.data));
-    if (updateProfileBookmarkTab) {
-      dispatch(getProfileContentSucceeded(res.data.bookmarks, 'bookmarks'));
-    }
-  });
+export const fetchBookmarks = updateProfileBookmarkTab => (dispatch) => {
+  if (!api.getToken()) { return; }
+  return api.fetchBookmarks()
+    .then((res) => {
+      dispatch(fetchBookmarksSucceeded(res.data));
+      if (updateProfileBookmarkTab) {
+        dispatch(getProfileContentSucceeded(res.data.bookmarks, 'bookmarks'));
+      }
+    }).catch(() => 0);
+};
 
 export const addBookmarksSucceeded = bookmarks => ({
   type: actions.ADD_BOOKMARKS_SUCCEEDED,

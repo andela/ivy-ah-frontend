@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, Header, Button } from 'semantic-ui-react';
 import dateFormater from '../helpers/dateFormater';
+import FollowContainer from '../containers/Follow';
 
 const ProfileUserCard = ({
   profile,
@@ -55,12 +56,16 @@ const ProfileUserCard = ({
         </span>
       </p>
       {!editingProfile ? (
-        <Button
-          onClick={signedInUser === profile.id ? onEdit : null}
-          className="btn blueButton"
-        >
-          {signedInUser === profile.id ? 'Edit Profile' : 'Follow'}
-        </Button>
+        signedInUser === profile.id ? (
+          <Button
+            onClick={onEdit}
+            className="btn blueButton"
+          >
+            Edit Profile
+          </Button>
+        ) : (
+          <FollowContainer authorId={profile.id} />
+        )
       ) : null}
     </div>
   );

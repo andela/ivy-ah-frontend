@@ -1,15 +1,29 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
-const userObject = JSON.parse(localStorage.getItem('user'));
-const token = userObject ? userObject.token : '';
+
+export const getToken = () => store.getState().auth.token;
+
 export const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token
+    Authorization: getToken()
   },
 });
+
+const setToken = (() => {
+  let cacheToken = '';
+  return (token) => {
+    if (cacheToken !== token) {
+      client.defaults.headers.Authorization = token;
+      cacheToken = token;
+    }
+  };
+})();
+
+store.subscribe(() => setToken(getToken()));
 
 export const uploadProfileImage = (file) => {
   const url = 'https://api.cloudinary.com/v1_1/dcfc113t5/image/upload';
@@ -21,6 +35,7 @@ export const uploadProfileImage = (file) => {
 
 const urlParams = new URLSearchParams(window.location.search);
 const resetToken = urlParams.get('resetToken');
+
 export const signup = params => client.post('/users/signup', params);
 export const login = params => client.post('/users/login', params);
 export const forgotPassword = params => client.post('/users/forgotpassword', params);
@@ -48,3 +63,6 @@ export const fetchLatestArticleHype = articleId => client.get(`/articles/rating/
 export const updateProfile = params => client.patch('/users', params);
 export const postComment = (articleId, body) => client.post(`/comments/${articleId}`, { body });
 export const reportArticle = article => client.post('/articles/report', article);
+export const followUser = authorId => client.post(`/profiles/${authorId}/follow`);
+export const unFollowUser = authorId => client.delete(`/profiles/${authorId}/follow`);
+export const fetchUserFollowing = userId => client.get(`profiles/${userId}/following`);

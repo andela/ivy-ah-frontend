@@ -12,6 +12,7 @@ import ArticleTag from '../src/components/ArticleTag';
 import singleArticleReducer from '../src/reducers/singleArticleReducer';
 import * as articleActions from '../src/actions/articleActions';
 import AuthorMetadata from '../src/components/AuthorMetadata';
+import ArticlePage from '../src/components/ArticlePage';
 
 
 const mockStore = configureStore([thunk]);
@@ -142,7 +143,7 @@ describe('<Article />', () => {
       fetchArticleHandler: jest.fn()
     };
     const wrapper = shallow(<Article {...props} />);
-    expect(wrapper.find('div').length).toEqual(1);
+    expect(wrapper.find(ArticlePage).length).toEqual(1);
   });
 });
 

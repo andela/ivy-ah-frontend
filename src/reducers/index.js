@@ -9,6 +9,7 @@ import resetReducer from './resetPassword';
 import profileReducer from './profile';
 import createArticleReducer from './articlesReducer';
 import commentReducer from './comment';
+import followUserReducer from './follow';
 
 
 const rootReducer = combineReducers({
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   articleReducer,
   createArticleReducer,
   comment: commentReducer,
-  reportArticleReducer
+  reportArticleReducer,
+  follow: followUserReducer,
 });
 
 export default rootReducer;
