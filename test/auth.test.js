@@ -61,7 +61,7 @@ describe('Auth reducer', () => {
   });
 
   const initialState = {
-    token: null,
+    token: '',
     userId: null,
     email: null,
     error: null,
@@ -69,12 +69,13 @@ describe('Auth reducer', () => {
     loading: false,
     shouldRedirect: false,
     openModal: false,
+    user: {},
     modalPane: 'sign in'
   };
 
   it('should return the initial state', () => {
     expect(AuthReducer(undefined, {})).toEqual({
-      token: null,
+      token: '',
       userId: null,
       email: null,
       error: null,
@@ -82,7 +83,8 @@ describe('Auth reducer', () => {
       loading: false,
       shouldRedirect: false,
       openModal: false,
-      modalPane: 'sign in'
+      modalPane: 'sign in',
+      user: {}
     });
   });
 
@@ -105,6 +107,7 @@ describe('Auth reducer', () => {
       verified: false,
       loading: false,
       shouldRedirect: false,
+      user: {},
     });
   });
 
@@ -127,7 +130,7 @@ describe('Auth reducer', () => {
 
   it('it should toggle close the auth modal', () => {
     expect(AuthReducer({
-      token: null,
+      token: '',
       userId: null,
       email: null,
       error: null,
@@ -136,6 +139,7 @@ describe('Auth reducer', () => {
       openModal: true,
       modalPane: 'sign in',
       shouldRedirect: false,
+      user: {},
     }, actions.toggleModal('sign up'))).toEqual({
       ...initialState,
       modalPane: 'sign up',

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProfileContainerSwitch from '../components/ProfileContainerSwitch';

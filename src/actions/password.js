@@ -18,7 +18,7 @@ export const sendResetLinkFail = error => ({
 
 export const sendLink = email => (dispatch) => {
   dispatch(passwordStart());
-  const url = 'http://localhost:2019/resetPassword';
+  const url = 'https://ivy-ah-frontend.herokuapp.com/resetPassword';
   forgotPassword({ email, url })
     .then((response) => {
       dispatch(sendResetLinkSuccess(response.data.passwordResetToken));

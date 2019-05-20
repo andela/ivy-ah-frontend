@@ -43,6 +43,7 @@ const App = () => (
       <Route path="/resetPassword" exact component={ResetPasswordContainer} />
       <Route path="/requestSent" exact component={PasswordLinkSent} />
       <Route path="/" exact component={articles} />
+      {/* <Route path="/token/:token" exact component={<div />} /> */}
       <Route path="/verify-email" component={Verify} />
       <Route path="/article/:id" component={singleArticle} />
       <Route

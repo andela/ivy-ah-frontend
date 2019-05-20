@@ -1,7 +1,15 @@
+import { persistReducer } from 'redux-persist';
+import { decode } from 'jsonwebtoken';
+import storage from 'redux-persist/lib/storage';
 import * as actions from '../actions/actionTypes';
 
+const authPersistConfig = {
+  key: 'auth',
+  storage
+};
+
 const initialState = {
-  token: null,
+  token: '',
   userId: null,
   email: null,
   error: null,
@@ -9,7 +17,8 @@ const initialState = {
   loading: false,
   openModal: false,
   modalPane: 'sign in',
-  shouldRedirect: false
+  shouldRedirect: false,
+  user: {},
 };
 
 const authLoading = state => ({
@@ -27,7 +36,8 @@ const authSuccess = (state, action) => ({
   verified: false,
   openModal: false,
   loading: false,
-  error: null
+  error: null,
+  user: decode(action.token) || {}
 });
 
 const authFail = (state, action) => ({
@@ -49,6 +59,8 @@ const verifyEmail = (state, action) => ({
   email: action.email
 });
 
+const signOut = () => initialState;
+
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.AUTH_LOADING: return authLoading(state, action);
@@ -56,9 +68,10 @@ const AuthReducer = (state = initialState, action) => {
     case actions.AUTH_FAIL: return authFail(state, action);
     case actions.TOGGLE_MODAL: return toggleModal(state, action);
     case actions.VERIFY_EMAIL: return verifyEmail(state, action);
+    case actions.SIGN_OUT: return signOut();
     default:
       return state;
   }
 };
 
-export default AuthReducer;
+export default persistReducer(authPersistConfig, AuthReducer);

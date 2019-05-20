@@ -22,6 +22,7 @@ describe('<Ratings />', () => {
       updateHypeError={false}
       rateArticleHandler={() => 6}
       articleId={46455}
+      requestAuth={() => 0}
     />);
     h.find(Hype).first().simulate('mouseenter');
     h.find(Hype).first().simulate('mouseleave');
