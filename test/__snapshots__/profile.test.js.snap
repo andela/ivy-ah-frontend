@@ -92,7 +92,7 @@ exports[`<ProfileFollowingCard/> Should match the snapshot 1`] = `
   className="column"
 >
   <a
-    href="/profileRedirect/someid"
+    href="/profile/someid"
     onClick={[Function]}
   >
     <div

@@ -1,6 +1,6 @@
 import * as actions from './actionTypes';
 import { signup, login } from '../api';
-
+import { fetchBookmarks } from './bookmark';
 
 export const authStart = () => ({
   type: actions.AUTH_LOADING
@@ -9,6 +9,10 @@ export const authStart = () => ({
 export const toggleModal = (modalPane = 'sign in') => ({
   type: actions.TOGGLE_MODAL,
   modalPane
+});
+
+export const signOut = () => ({
+  type: actions.SIGN_OUT
 });
 
 export const authSuccess = (token, id, email) => ({
@@ -39,6 +43,7 @@ export const signUp = (firstname, lastname, email, password) => (dispatch) => {
   signup(authData)
     .then((response) => {
       dispatch(verifyEmail(response.data.user.email));
+      dispatch(fetchBookmarks());
     })
     .catch((err) => {
       const { error } = err.response.data;
@@ -54,16 +59,13 @@ export const logIn = (email, password) => (dispatch) => {
   };
   login(authData)
     .then((response) => {
-      const { userid, token } = response.data.user;
+      const { id, token } = response.data.user;
       if (!response.data.user.isVerified) {
-        // due to the current issues with sendgrid, users are authenticated without verification
-        // dispatch(verifyEmail(response.data.user.email));
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        dispatch(authSuccess(token, userid, response.data.user.email));
+        dispatch(authSuccess(token, id, response.data.user.email));
       } else {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        dispatch(authSuccess(token, userid, response.data.user.email));
+        dispatch(authSuccess(token, id, response.data.user.email));
       }
+      dispatch(fetchBookmarks());
     })
     .catch((err) => {
       const { error } = err.response.data;
