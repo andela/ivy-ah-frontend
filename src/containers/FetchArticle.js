@@ -6,7 +6,7 @@ import ArticlePage from '../components/ArticlePage';
 
 export const Article = ({
   // eslint-disable-next-line no-shadow
-  article, match, fetchArticle, loading, error
+  article, totalArticleHype, match, fetchArticle, loading, error
 }) => {
   useEffect(() => {
     fetchArticle(match.params.id);
@@ -18,6 +18,7 @@ export const Article = ({
         article={article}
         loading={loading}
         error={error}
+        totalArticleHype={totalArticleHype}
       />
     </div>
   );
@@ -28,20 +29,24 @@ Article.propTypes = {
   fetchArticle: PropTypes.func.isRequired,
   match: PropTypes.shape({}),
   loading: PropTypes.bool,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  totalArticleHype: PropTypes.number
 };
 
 Article.defaultProps = {
   article: {},
   match: {},
   loading: true,
-  error: false
+  error: false,
+  totalArticleHype: 0
 };
 
 const mapStateToProps = (state) => {
-  const { article, loading, error } = state.article;
+  const {
+    article, totalArticleHype, loading, error
+  } = state.article;
   return {
-    article, loading, error
+    article, totalArticleHype, loading, error
   };
 };
 

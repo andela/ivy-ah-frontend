@@ -4,8 +4,8 @@ import hypeIcon from 'Assets/sass/components/assets/hype-icon.svg';
 
 const ArticleMetadata = ({
   data: {
-    title, user, readTime, isPremium, createdAt, ratings,
-  }
+    title, user, readTime, isPremium, createdAt,
+  }, totalArticleHype
 }) => (
   <div className="article-metadata">
     <h1 className="article-title">{title}</h1>
@@ -28,7 +28,7 @@ const ArticleMetadata = ({
       <span className="item">
         <img src={hypeIcon} alt="hype-icon" className="hype article-icon" />
         <span className="hype-text">
-          {ratings >= 1000 ? (ratings / 1000).toFixed(1) : ratings}
+          {totalArticleHype >= 1000 ? (totalArticleHype / 1000).toFixed(1) : totalArticleHype}
           {' Hypes'}
         </span>
       </span>
@@ -53,8 +53,9 @@ ArticleMetadata.propTypes = {
     readTime: PropTypes.string,
     isPremium: PropTypes.bool,
     createdAt: PropTypes.string,
-    ratings: PropTypes.number
-  })
+    ratings: PropTypes.number,
+  }),
+  totalArticleHype: PropTypes.number
 };
 
 ArticleMetadata.defaultProps = {
@@ -64,8 +65,9 @@ ArticleMetadata.defaultProps = {
     readTime: '',
     isPremium: false,
     ratings: 0,
-    createdAt: ''
-  }
+    createdAt: '',
+  },
+  totalArticleHype: 0
 };
 
 

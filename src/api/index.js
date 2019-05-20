@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
-
+const userObject = JSON.parse(localStorage.getItem('user'));
+const token = userObject ? userObject.token : null;
 export const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: token
   },
 });
 
@@ -35,3 +37,5 @@ export const fetchUserArticle = userId => client.get(`users/articles/${userId}`)
 export const fetchUserFollowers = authorId => client.get(`profiles/${authorId}/followers`);
 export const fetchArticles = (page, limit) => client.get('/articles/', { params: { page, limit } });
 export const addArticle = article => client.post('/articles', article);
+export const rateArticle = article => client.post('/articles/rating', article);
+export const fetchLatestArticleHype = articleId => client.get(`/articles/rating/${articleId}`);
