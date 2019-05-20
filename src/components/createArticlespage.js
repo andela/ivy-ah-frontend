@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 import { EditorState, convertToRaw } from 'draft-js';
 import { Message } from 'semantic-ui-react';
 import { WithContext as ReactTagInput } from 'react-tag-input';
@@ -130,6 +131,7 @@ const CreateArticlePage = (props) => {
       <div>
         {(formError) ? <Message negative list={[formError]} /> : ''}
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 };

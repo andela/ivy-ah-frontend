@@ -47,3 +47,4 @@ export const rateArticle = article => client.post('/articles/rating', article);
 export const fetchLatestArticleHype = articleId => client.get(`/articles/rating/${articleId}`);
 export const updateProfile = params => client.patch('/users', params);
 export const postComment = (articleId, body) => client.post(`/comments/${articleId}`, { body });
+export const reportArticle = article => client.post('/articles/report', article);
