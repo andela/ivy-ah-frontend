@@ -18,7 +18,7 @@ export const contentHandler = (loadedContentType, profileContent, isEditing) => 
       return [latestContent, content];
     case 'followers':
       newContent = [...profileContent];
-      latestContent = profileContent.splice(0, 3);
+      latestContent = newContent.splice(0, 3);
       content = newContent;
       return [latestContent, content];
     case 'bio':

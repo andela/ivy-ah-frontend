@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for the Follow Component renders the button with Follow when isFollowing is false 1`] = `
+<div>
+  <button
+    className="ui button follow"
+    onClick={[Function]}
+    type="button"
+  >
+    Follow
+  </button>
+</div>
+`;
+
+exports[`Tests for the Follow Component renders the button with Unfollow when isFollowing is true 1`] = `
+<div>
+  <button
+    className="ui button follow"
+    onClick={[Function]}
+    type="button"
+  >
+    Unfollow
+  </button>
+</div>
+`;
