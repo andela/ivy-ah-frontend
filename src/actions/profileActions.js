@@ -1,6 +1,11 @@
 import * as actions from './actionTypes';
-import { fetchProfile, fetchUserArticle, fetchUserFollowers } from '../api';
-
+import {
+  fetchProfile,
+  fetchUserArticle,
+  fetchUserFollowers,
+  updateProfile,
+  uploadProfileImage
+} from '../api';
 
 export const getProfileStart = () => ({
   type: actions.GET_PROFILE_STARTED
@@ -11,6 +16,10 @@ export const getProfileSucceeded = profile => ({
   profile
 });
 
+export const updateProfileSucceeded = profile => ({
+  type: actions.EDIT_PROFILE_SUCCEEDED,
+  profile
+});
 
 export const getProfileFailed = () => ({
   type: actions.GET_PROFILE_FAILED
@@ -28,6 +37,10 @@ export const getProfileContentSucceeded = (content, contentType) => ({
 
 export const getProfileContentFailed = () => ({
   type: actions.GET_PROFILE_CONTENT_FAILED
+});
+
+export const getUserBio = () => ({
+  type: actions.FETCH_USER_BIO
 });
 
 export const getUserArticle = userId => (dispatch) => {
@@ -63,5 +76,72 @@ export const getProfile = id => (dispatch) => {
     })
     .catch((err) => {
       dispatch(getProfileFailed());
+    });
+};
+
+export const editProfileStart = () => ({
+  type: actions.EDIT_PROFILE_START
+});
+
+export const editProfile = () => (dispatch) => {
+  dispatch(editProfileStart());
+};
+
+export const editProfileCancelled = () => ({
+  type: actions.EDIT_PROFILE_CANCELLED
+});
+
+export const saveEditProfileStart = () => ({
+  type: actions.SAVE_EDITED_PROFILE_START
+});
+
+export const editProfileFailed = () => ({
+  type: actions.EDIT_PROFILE_FAILED
+});
+export const saveEditedProfile = profile => (dispatch) => {
+  dispatch(saveEditProfileStart());
+  const {
+    email, firstname, lastname
+  } = profile;
+  const image = `${profile.image}`;
+  const profileData = {
+    bio: profile.bio,
+    email,
+    firstname,
+    lastname,
+    image
+  };
+  return updateProfile(profileData)
+    .then((response) => {
+      const { user } = response.data;
+      dispatch(updateProfileSucceeded(user));
+    })
+    .catch((err) => {
+      dispatch(editProfileFailed());
+    });
+};
+
+export const changingProfileImageStart = () => ({
+  type: actions.CHANGING_PROFILE_IMAGE_START
+});
+
+export const changingProfileImageSucceeded = imageUrl => ({
+  type: actions.CHANGING_PROFILE_IMAGE_SUCCEEDED,
+  imageUrl
+});
+
+export const changingProfileImageFailed = () => ({
+  type: actions.CHANGING_PROFILE_IMAGE_FAILED
+});
+
+export const changeProfileImage = profileImage => (dispatch) => {
+  dispatch(changingProfileImageStart());
+  return uploadProfileImage(profileImage)
+    .then((response) => {
+      const imageUrl = response.data.url;
+      dispatch(changingProfileImageSucceeded(imageUrl));
+    })
+    .catch((error) => {
+      dispatch(changingProfileImageFailed());
     });
 };

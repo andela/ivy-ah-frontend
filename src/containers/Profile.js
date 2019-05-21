@@ -3,14 +3,23 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Grid, Container } from 'semantic-ui-react';
+import ProfileBioCard from 'Components/ProfileBioCard';
 import ProfileUserCard from '../components/ProfileUserCard';
 import ProfilePlaceholder from '../components/ProfilePlaceholder';
 import ProfileTab from '../components/ProfileTab';
+import ProfileArticleCardList from '../components/ProfileArticleCardList';
+import ProfileArticleCard from '../components/ProfileArticleCard';
+import ProfileFollowingList from '../components/ProfileFollowingList';
 import { contentHandler } from '../helpers/profileHelper';
 import {
   getProfile,
   getUserArticle,
-  getUserFollowers
+  getUserFollowers,
+  getUserBio,
+  editProfile,
+  editProfileCancelled,
+  saveEditedProfile,
+  changeProfileImage
 } from '../actions/profileActions';
 
 const Profile = ({
@@ -24,7 +33,15 @@ const Profile = ({
   didLoadingFail,
   getArticles,
   getFollowers,
-  loadedContentType
+  loadedContentType,
+  getBio,
+  editUserProfile,
+  editingProfile,
+  editUserProfileCancelled,
+  saveProfile,
+  savingProfile,
+  changingProfileImage,
+  changeImage
 }) => {
   if (didLoadingFail) {
     return <Redirect to="/notfound" />;
@@ -45,6 +62,22 @@ const Profile = ({
     if (event.target.text === 'articles') {
       return getArticles(match.params.id);
     }
+    if (event.target.text === 'bio') {
+      return getBio();
+    }
+  };
+
+  const profileEditHandler = () => editUserProfile();
+  const profileEditCancelled = () => editUserProfileCancelled();
+
+  const onImageChange = (event) => {
+    const file = event.target.files[0];
+    changeImage(file);
+  };
+
+  const savingEditedProfile = (profile) => {
+    profile.image = user.image;
+    saveProfile(profile);
   };
 
   let content, latestContent;
@@ -65,23 +98,60 @@ const Profile = ({
                 signedInUser={signedInUser}
                 profile={user}
                 loadingProfile={loadingProfile}
+                onEdit={profileEditHandler}
+                editingProfile={editingProfile}
+                onImageChange={onImageChange}
+                changingProfileImage={changingProfileImage}
               />
             </Grid.Column>
             <Grid.Column width={10}>
               <div className="tab-wrapper">
                 <ProfileTab tabHandler={tabHandler} />
-                {latestContent && !loadingContent ? (
-                  latestContent
-                ) : (
-                  <ProfilePlaceholder />
-                )}
+                {loadingContent ? <ProfilePlaceholder /> : null}
+                {loadedContentType === 'articles'
+                && latestContent
+                && !loadingContent ? (
+                  <ProfileArticleCard article={latestContent} />
+                  ) : null}
+                {loadedContentType === 'bio'
+                && latestContent
+                && !loadingContent
+                && !savingProfile ? (
+                  <ProfileBioCard
+                    savingProfile={savingProfile}
+                    changingProfileImage={changingProfileImage}
+                    saveProfile={savingEditedProfile}
+                    cancelledEditing={profileEditCancelled}
+                    editingProfile={editingProfile}
+                    bio={latestContent}
+                  />
+                  )
+                  : null}
+                {(savingProfile) ? <ProfilePlaceholder /> : null}
+                {loadedContentType === 'followers'
+                && latestContent
+                && !loadingContent ? (
+                  <div>
+                    <div>
+                      {profileContent.length}
+                      {' '}
+followers
+                    </div>
+                    <ProfileFollowingList followers={latestContent} />
+                    {' '}
+                  </div>
+                  ) : null}
               </div>
             </Grid.Column>
           </Grid>
-
           {loadingContent ? null : (
             <Grid stackable columns={2} padded>
-              {content}
+              {loadedContentType === 'articles' && content ? (
+                <ProfileArticleCardList articles={content} />
+              ) : null}
+              {loadedContentType === 'followers' && content ? (
+                <ProfileFollowingList followers={content} />
+              ) : null}
             </Grid>
           )}
         </div>
@@ -97,15 +167,22 @@ const mapStateToProps = state => ({
   didLoadingFail: state.profile.loadingFailed,
   loadingContent: state.profile.loadingContent,
   profileContent: state.profile.profileContent,
-  loadedContentType: state.profile.loadedContentType
+  loadedContentType: state.profile.loadedContentType,
+  editingProfile: state.profile.editingProfile,
+  savingProfile: state.profile.savingProfile,
+  changingProfileImage: state.profile.changingProfileImage
 });
 
 const mapDispatchToProps = dispatch => ({
   getUserProfile: id => dispatch(getProfile(id)),
   getArticles: id => dispatch(getUserArticle(id)),
-  getFollowers: id => dispatch(getUserFollowers(id))
+  getFollowers: id => dispatch(getUserFollowers(id)),
+  getBio: () => dispatch(getUserBio()),
+  editUserProfile: () => dispatch(editProfile()),
+  editUserProfileCancelled: () => dispatch(editProfileCancelled()),
+  saveProfile: profile => dispatch(saveEditedProfile(profile)),
+  changeImage: profileImage => dispatch(changeProfileImage(profileImage))
 });
-
 
 Profile.propTypes = {
   match: PropTypes.shape({}),
@@ -119,12 +196,19 @@ Profile.propTypes = {
   loadedContentType: PropTypes.string.isRequired,
   user: PropTypes.shape({}),
   loadingProfile: PropTypes.bool.isRequired,
-
+  getBio: PropTypes.func.isRequired,
+  editUserProfile: PropTypes.func.isRequired,
+  editingProfile: PropTypes.bool.isRequired,
+  editUserProfileCancelled: PropTypes.func.isRequired,
+  saveProfile: PropTypes.func.isRequired,
+  savingProfile: PropTypes.bool.isRequired,
+  changingProfileImage: PropTypes.bool.isRequired,
+  changeImage: PropTypes.func.isRequired
 };
 
 Profile.defaultProps = {
   match: {},
-  user: {},
+  user: {}
 };
 
 export default connect(mapStateToProps,

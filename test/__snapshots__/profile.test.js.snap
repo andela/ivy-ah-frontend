@@ -156,14 +156,26 @@ exports[`<ProfileFollowingCard/> Should match the snapshot 2`] = `
 <div
   className="profile"
 >
-  <img
-    className="ui medium circular fluid image"
-    src="someurl"
-    style={
-      Object {
-        "margin": "0 auto",
+  <label
+    htmlFor="profileimage"
+    id="label"
+    nesting={true}
+  >
+    <img
+      className="ui medium circular fluid image"
+      src="someurl"
+      style={
+        Object {
+          "margin": "0 auto",
+        }
       }
-    }
+    />
+  </label>
+  <input
+    disabled={true}
+    hidden={true}
+    id="profileimage"
+    type="file"
   />
   <div
     className="ui huge header profile-username"
