@@ -18,7 +18,7 @@ const mockStore = configureStore([thunk]);
 
 describe('Test Article actions', () => {
   it('calls request and success actions if the fetch response was successful', () => {
-    api.client.get = jest.fn().mockReturnValue(Promise.resolve({
+    api.fetchArticle = jest.fn().mockReturnValue(Promise.resolve({
       data: {
         body: JSON.stringify({}),
         tagList: ['Movies', 'Sport', 'Business'],
@@ -43,7 +43,7 @@ describe('Test Article actions', () => {
   });
 
   it('calls request and success actions if the fetch response was successful', () => {
-    api.client.get = jest.fn().mockReturnValue(Promise.reject(new Error('An error occured')));
+    api.fetchArticle = jest.fn().mockReturnValue(Promise.reject(new Error('An error occured')));
     const expectedActions = [
       'FETCH_ARTICLE_STARTED',
       'FETCH_ARTICLE_FAILED'
@@ -132,6 +132,7 @@ describe('<Article />', () => {
           isPremium: true,
           createdAt: '2019-05-06T15:21:13.799Z',
           ratings: 100,
+          plainText: 'shjdjdkdlflf'
         },
       },
       match: {

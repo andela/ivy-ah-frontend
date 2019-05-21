@@ -5,11 +5,10 @@ import { fetchArticle } from '../actions/articleActions';
 import ArticlePage from '../components/ArticlePage';
 
 export const Article = ({
-  // eslint-disable-next-line no-shadow
-  article, totalArticleHype, match, fetchArticle, loading, error
+  article, totalArticleHype, match, fetchArticleHandler, loading, error
 }) => {
   useEffect(() => {
-    fetchArticle(match.params.id);
+    fetchArticleHandler(match.params.id);
   }, []);
 
   return (
@@ -26,7 +25,7 @@ export const Article = ({
 
 Article.propTypes = {
   article: PropTypes.shape({}),
-  fetchArticle: PropTypes.func.isRequired,
+  fetchArticleHandler: PropTypes.func.isRequired,
   match: PropTypes.shape({}),
   loading: PropTypes.bool,
   error: PropTypes.bool,
@@ -51,7 +50,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchArticle
+  fetchArticleHandler: fetchArticle
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

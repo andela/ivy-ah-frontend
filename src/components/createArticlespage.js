@@ -31,6 +31,10 @@ const CreateArticlePage = (props) => {
       plainText: JSON.stringify(editorState.getCurrentContent().getPlainText()),
       tagList: list
     };
+    if (/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.exec(post.body)) {
+      const [image] = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.exec(post.body);
+      post.bannerImage = image;
+    }
     createNewArticle(post);
   };
 

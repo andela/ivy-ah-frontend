@@ -6,12 +6,12 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .main-editor span{
+  .main-editor span {
     font-size: 16px !important;
   }
 }
 
-.main-editor img{
+.main-editor img {
   max-width: 100% !important;
   height: auto !important;
   max-height: 100% !important;
@@ -96,19 +96,24 @@
   line-height: 27px;
   color: #3157BE;
 }
-.hype-grey{
+
+.hype-grey {
   fill: grey !important;
 }
-.hype-blue{
+
+.hype-blue {
   fill: blue !important;
 }
-.rating{
+
+.rating {
   float: right;
   margin-left: auto;
   margin-right: 30px;
+  margin-bottom: 20px;
   height: 25px;
 }
-.rating-hype{
+
+.rating-hype {
   cursor: pointer;
 }
 
@@ -172,6 +177,23 @@
   color: #FFFFFF !important;
 }
 
+.bio-ratings {
+  display: flex;
+}
+
+.social-sharing button {
+  border: none !important;
+  cursor: pointer !important;
+  outline: none !important;
+  margin-right: 10px;
+}
+
+.social-ratings {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
 @media only screen and (max-width: 768px) {
   .article-title {
     font-size: 32px;
@@ -203,13 +225,21 @@
 
   .article-icon {
     font-size: 16px !important;
-  }  
+  }
 
   .hype-text {
     font-size: 12px;
   }
-  
+
   .follow {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .social-ratings {
+    order: -1;
+    flex-direction: row;
+    margin: 0 auto 30px;
   }
 }
