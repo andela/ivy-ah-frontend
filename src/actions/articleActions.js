@@ -20,13 +20,21 @@ export const updateArticleHype = totalRating => ({
   payload: { totalRating }
 });
 
+export const fetchCommentsSucceeded = article => ({
+  type: actions.FETCH_COMMENTS_SUCCEEDED,
+  payload: article,
+});
+
 export const fetchArticle = id => (dispatch) => {
   dispatch(fetchArticleStarted());
   return api.fetchArticle(id)
     .then((response) => {
       dispatch(fetchArticleSucceeded(response.data));
+      dispatch(fetchCommentsSucceeded(response.data.data));
     })
-    .catch(error => dispatch(fetchArticleFailed(error)));
+    .catch((error) => {
+      dispatch(fetchArticleFailed(error));
+    });
 };
 
 export const fetchArticleHype = articleId => (dispatch) => {

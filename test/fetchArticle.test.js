@@ -32,7 +32,8 @@ describe('Test Article actions', () => {
 
     const expectedActions = [
       'FETCH_ARTICLE_STARTED',
-      'FETCH_ARTICLE_SUCCEEDED'
+      'FETCH_ARTICLE_SUCCEEDED',
+      'FETCH_COMMENTS_SUCCEEDED',
     ];
     const store = mockStore({});
     return store.dispatch(articleActions.fetchArticle('2aec1bef'))
@@ -46,7 +47,7 @@ describe('Test Article actions', () => {
     api.fetchArticle = jest.fn().mockReturnValue(Promise.reject(new Error('An error occured')));
     const expectedActions = [
       'FETCH_ARTICLE_STARTED',
-      'FETCH_ARTICLE_FAILED'
+      'FETCH_ARTICLE_FAILED',
     ];
     const store = mockStore({});
     return store.dispatch(articleActions.fetchArticle('2aec1bef'))
@@ -138,10 +139,10 @@ describe('<Article />', () => {
       match: {
         params: {}
       },
-      fetchArticle: jest.fn()
+      fetchArticleHandler: jest.fn()
     };
     const wrapper = shallow(<Article {...props} />);
-    expect(wrapper.find('.article-view').length).toEqual(1);
+    expect(wrapper.find('div').length).toEqual(1);
   });
 });
 
