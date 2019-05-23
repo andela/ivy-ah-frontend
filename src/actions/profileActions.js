@@ -35,6 +35,11 @@ export const getProfileContentSucceeded = (content, contentType) => ({
   contentType
 });
 
+export const updateProfileBookmark = articleId => ({
+  type: actions.REMOVE_PROFILE_BOOKMARK,
+  articleId
+});
+
 export const getProfileContentFailed = () => ({
   type: actions.GET_PROFILE_CONTENT_FAILED
 });

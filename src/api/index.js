@@ -30,9 +30,7 @@ export const resetPassword = params => axios({
   data: params
 });
 export const fetchBookmarks = () => client.get('/bookmarks');
-
 export const addBookmark = article => client.post('/bookmarks', { article });
-
 export const removeBookmark = article => client.delete('/bookmarks', {
   data: {
     article

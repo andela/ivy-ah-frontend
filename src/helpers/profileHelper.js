@@ -8,24 +8,30 @@ export const profileRedirect = ({ match }) => (
 );
 
 export const contentHandler = (loadedContentType, profileContent, isEditing) => {
+  let newContent;
   let latestContent;
   let content;
   switch (loadedContentType) {
     case 'articles':
-      if (profileContent.articles.length !== 0) {
-        latestContent = profileContent.articles.shift();
-        content = profileContent;
-      } else {
-        latestContent = '0 articles';
-      }
+      latestContent = profileContent.articles.shift();
+      content = profileContent;
       return [latestContent, content];
     case 'followers':
+      newContent = [...profileContent];
       latestContent = profileContent.splice(0, 3);
-      content = profileContent;
+      content = newContent;
       return [latestContent, content];
     case 'bio':
       latestContent = profileContent;
       content = null;
+      return [latestContent, content];
+    case 'bookmarks':
+      if (profileContent.length !== 0) {
+        [latestContent] = profileContent;
+        content = profileContent.slice(1);
+      } else {
+        latestContent = '0 articles';
+      }
       return [latestContent, content];
     default:
       content = profileContent;
