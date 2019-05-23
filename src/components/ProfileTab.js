@@ -7,7 +7,8 @@ const ProfileTab = ({ tabHandler }) => {
     { menuItem: 'articles', render: () => <Tab.Pane attached={false} /> },
     { menuItem: 'followers', render: () => <Tab.Pane attached={false} /> },
     { menuItem: 'following', render: () => <Tab.Pane attached={false} /> },
-    { menuItem: 'bio', render: () => <Tab.Pane active={false} attached={false} /> }
+    { menuItem: 'bio', render: () => <Tab.Pane active={false} attached={false} /> },
+    { menuItem: 'bookmarks', render: () => <Tab.Pane attached={false} /> }
   ];
 
   return (

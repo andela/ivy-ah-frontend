@@ -9,8 +9,11 @@ import ProfilePlaceholder from '../components/ProfilePlaceholder';
 import ProfileTab from '../components/ProfileTab';
 import ProfileArticleCardList from '../components/ProfileArticleCardList';
 import ProfileArticleCard from '../components/ProfileArticleCard';
+import ProfileBookmarkCardList from '../components/ProfileBookmarkCardList';
+import ProfileBookmarkCard from '../components/ProfileBookmarkCard';
 import ProfileFollowingList from '../components/ProfileFollowingList';
 import { contentHandler } from '../helpers/profileHelper';
+import { fetchBookmarks } from '../actions/bookmark';
 import {
   getProfile,
   getUserArticle,
@@ -19,7 +22,8 @@ import {
   editProfile,
   editProfileCancelled,
   saveEditedProfile,
-  changeProfileImage
+  changeProfileImage,
+  getProfileContentStart
 } from '../actions/profileActions';
 
 const Profile = ({
@@ -41,7 +45,9 @@ const Profile = ({
   saveProfile,
   savingProfile,
   changingProfileImage,
-  changeImage
+  changeImage,
+  getBookmarks,
+  getBookmarkStart
 }) => {
   if (didLoadingFail) {
     return <Redirect to="/notfound" />;
@@ -65,6 +71,10 @@ const Profile = ({
     if (event.target.text === 'bio') {
       return getBio();
     }
+    if (event.target.text === 'bookmarks') {
+      getBookmarkStart();
+      return getBookmarks();
+    }
   };
 
   const profileEditHandler = () => editUserProfile();
@@ -85,6 +95,7 @@ const Profile = ({
     const formatedContent = contentHandler(loadedContentType, profileContent);
     [latestContent, content] = formatedContent;
   }
+
 
   return (
     <Container>
@@ -109,10 +120,9 @@ const Profile = ({
                 <ProfileTab tabHandler={tabHandler} />
                 {loadingContent ? <ProfilePlaceholder /> : null}
                 {loadedContentType === 'articles'
-                && latestContent
-                && !loadingContent ? (
+                && !loadingContent ? (!latestContent) ? <div> No articles yet </div> : (
                   <ProfileArticleCard article={latestContent} />
-                  ) : null}
+                ) : null}
                 {loadedContentType === 'bio'
                 && latestContent
                 && !loadingContent
@@ -141,6 +151,13 @@ followers
                     {' '}
                   </div>
                   ) : null}
+                {loadedContentType === 'bookmarks'
+                && latestContent !== '0 articles'
+                && !loadingContent ? (
+                  <div>
+                    <ProfileBookmarkCard article={latestContent} />
+                  </div>
+                  ) : null}
               </div>
             </Grid.Column>
           </Grid>
@@ -151,6 +168,9 @@ followers
               ) : null}
               {loadedContentType === 'followers' && content ? (
                 <ProfileFollowingList followers={content} />
+              ) : null}
+              {loadedContentType === 'bookmarks' && content ? (
+                <ProfileBookmarkCardList articles={content} />
               ) : null}
             </Grid>
           )}
@@ -181,7 +201,9 @@ const mapDispatchToProps = dispatch => ({
   editUserProfile: () => dispatch(editProfile()),
   editUserProfileCancelled: () => dispatch(editProfileCancelled()),
   saveProfile: profile => dispatch(saveEditedProfile(profile)),
-  changeImage: profileImage => dispatch(changeProfileImage(profileImage))
+  changeImage: profileImage => dispatch(changeProfileImage(profileImage)),
+  getBookmarks: () => dispatch(fetchBookmarks(true)),
+  getBookmarkStart: () => dispatch(getProfileContentStart())
 });
 
 Profile.propTypes = {
@@ -203,7 +225,9 @@ Profile.propTypes = {
   saveProfile: PropTypes.func.isRequired,
   savingProfile: PropTypes.bool.isRequired,
   changingProfileImage: PropTypes.bool.isRequired,
-  changeImage: PropTypes.func.isRequired
+  changeImage: PropTypes.func.isRequired,
+  getBookmarks: PropTypes.func.isRequired,
+  getBookmarkStart: PropTypes.func.isRequired
 };
 
 Profile.defaultProps = {

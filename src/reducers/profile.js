@@ -108,6 +108,13 @@ const changingProfileImageFailed = state => ({
 });
 
 
+const removeProfileBookmark = (state, action) => ({
+  ...state,
+  profileContent: state.profileContent
+    .filter(profileContent => profileContent.article !== action.articleId),
+  loadedContentType: 'bookmarks'
+});
+
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_PROFILE_STARTED:
@@ -138,6 +145,8 @@ const profileReducer = (state = initialState, action) => {
       return changingProfileImageSucceeded(state, action);
     case actions.CHANGING_PROFILE_IMAGE_FAILED:
       return changingProfileImageFailed(state);
+    case actions.REMOVE_PROFILE_BOOKMARK:
+      return removeProfileBookmark(state, action);
     default:
       return state;
   }

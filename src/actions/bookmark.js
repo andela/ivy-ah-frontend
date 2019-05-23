@@ -1,5 +1,6 @@
 import * as api from '../api';
 import * as actions from './actionTypes';
+import { getProfileContentSucceeded, updateProfileBookmark } from './profileActions';
 
 
 export const editBookmarkStarted = (articleId, bookmarked) => ({
@@ -17,9 +18,13 @@ export const fetchBookmarksSucceeded = bookmarks => ({
   payload: { bookmarks }
 });
 
-export const fetchBookmarks = () => dispatch => api.fetchBookmarks().then((res) => {
-  dispatch(fetchBookmarksSucceeded(res.data));
-});
+export const fetchBookmarks = updateProfileBookmarkTab => dispatch => api.fetchBookmarks()
+  .then((res) => {
+    dispatch(fetchBookmarksSucceeded(res.data));
+    if (updateProfileBookmarkTab) {
+      dispatch(getProfileContentSucceeded(res.data.bookmarks, 'bookmarks'));
+    }
+  });
 
 export const addBookmarksSucceeded = bookmarks => ({
   type: actions.ADD_BOOKMARKS_SUCCEEDED,
@@ -40,10 +45,13 @@ export const removeBookmarksSucceeded = bookmarks => ({
   payload: { bookmarks }
 });
 
-export const removeBookmarks = articleId => (dispatch) => {
+export const removeBookmarks = (articleId, updateProfileBookmarkTab) => (dispatch) => {
   dispatch(editBookmarkStarted(articleId, false));
   return api.removeBookmark(articleId).then(() => {
     dispatch(removeBookmarksSucceeded(articleId));
+    if (updateProfileBookmarkTab) {
+      dispatch(updateProfileBookmark(articleId));
+    }
   }).catch(() => {
     dispatch(editBookmarksFailed(articleId));
   });
