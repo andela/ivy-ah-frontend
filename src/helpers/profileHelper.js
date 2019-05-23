@@ -1,50 +1,120 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ProfileArticleCardList from '../components/ProfileArticleCardList';
-import ProfileArticleCard from '../components/ProfileArticleCard';
-import ProfileFollowingList from '../components/ProfileFollowingList';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 export const profileRedirect = ({ match }) => (
   <Redirect to={`/profile/${match.params.id}`} />
 );
 
-export const contentHandler = (loadedContentType, profileContent) => {
-  let noOfFollowers;
-  let lastTwoFollowers;
+export const contentHandler = (loadedContentType, profileContent, isEditing) => {
   let latestContent;
   let content;
   switch (loadedContentType) {
     case 'articles':
       if (profileContent.articles.length !== 0) {
-        latestContent = (
-          <ProfileArticleCard article={profileContent.articles.shift()} />
-        );
-        content = <ProfileArticleCardList articles={profileContent} />;
+        latestContent = profileContent.articles.shift();
+        content = profileContent;
       } else {
         latestContent = '0 articles';
       }
       return [latestContent, content];
     case 'followers':
-      noOfFollowers = profileContent.length;
-      lastTwoFollowers = profileContent.splice(0, 3);
-      latestContent = (
-        <div>
-          <p>{`${noOfFollowers} followers`}</p>
-          <ProfileFollowingList followers={lastTwoFollowers} />
-        </div>
-      );
-      content = <ProfileFollowingList followers={profileContent} />;
+      latestContent = profileContent.splice(0, 3);
+      content = profileContent;
+      return [latestContent, content];
+    case 'bio':
+      latestContent = profileContent;
+      content = null;
       return [latestContent, content];
     default:
       content = profileContent;
   }
 };
 
-profileRedirect.propTypes = {
-  match: PropTypes.shape({})
+export const uploadProfileImage = (file) => {
+  const url = 'https://api.cloudinary.com/v1_1/dcfc113t5/image/upload';
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'ivyteam');
+  return axios.post(url, formData, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
 };
 
-profileRedirect.defaultProps = {
-  match: {}
+
+export const profileBioValidator = (fieldName, formInputs) => {
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/g;
+  const fieldValue = formInputs[fieldName].trim();
+  const error = formInputs.bioError || {};
+
+  if (!fieldValue) {
+    error[fieldName] = `${fieldName} is required`;
+    return error;
+  }
+  if (error[fieldName]) {
+    delete error[fieldName];
+  }
+
+  switch (fieldName) {
+    case 'firstname':
+      if (symbolRegex.test(fieldValue)) {
+        error[
+          fieldName
+        ] = `${fieldName} should not contain symbols`;
+        return error;
+      }
+      if (fieldValue.length < 3) {
+        error[
+          fieldName
+        ] = `Your ${fieldName} is too short. ${fieldName} should be more than 2 characters.`;
+        return error;
+      }
+      break;
+
+    case 'lastname':
+      if (symbolRegex.test(fieldValue)) {
+        error[
+          fieldName
+        ] = `${fieldName} should not contain symbols`;
+        return error;
+      }
+      if (fieldValue.length < 3) {
+        error[
+          fieldName
+        ] = `Your ${fieldName} is too short. ${fieldName} should be more than 2 characters.`;
+        return error;
+      }
+      break;
+
+    case 'email':
+      if (!emailRegex.test(fieldValue)) {
+        error[
+          fieldName
+        ] = 'Please provide a valid email';
+        return error;
+      }
+      break;
+    case 'bio':
+      if (symbolRegex.test(fieldValue)) {
+        error[
+          fieldName
+        ] = `${fieldName} bio should not contain symbols`;
+        return error;
+      }
+      if (fieldValue.length > 100) {
+        error[
+          fieldName
+        ] = `Your ${fieldName} is too long. ${fieldName} should not be more than 100 characters.`;
+        return error;
+      }
+      break;
+    default:
+      return error;
+  }
 };
+
+profileRedirect.propTypes = {
+  match: PropTypes.shape({}).isRequired
+};
+
+export default profileBioValidator;

@@ -7,7 +7,11 @@ const initialState = {
   loadingContent: false,
   loadedContentType: 'articles',
   loadingFailed: false,
-  error: null
+  error: null,
+  editingProfile: false,
+  savingProfile: false,
+  changingProfileImage: false,
+  prevProfileImage: '',
 };
 
 const getProfileStarted = state => ({
@@ -36,13 +40,73 @@ const getProfileFailed = state => ({
 const getProfileSucceeded = (state, action) => ({
   ...state,
   user: action.profile,
-  loadingProfile: false
+  loadingProfile: false,
+  editingProfile: false,
+  prevProfileImage: action.profile.image
 });
 
 const getProfileContentFailed = state => ({
   ...state,
-  loadingContent: false
+  loadingContent: false,
+  editingProfile: false
 });
+
+const setUserBio = state => ({
+  ...state,
+  profileContent: state.user,
+  loadedContentType: 'bio',
+  loadingContent: false,
+  editingProfile: false
+});
+
+const editUserProfile = state => ({
+  ...state,
+  profileContent: state.user,
+  loadedContentType: 'bio',
+  editingProfile: true,
+  loadingContent: false,
+});
+
+const editUserProfileCancelled = state => ({
+  ...state,
+  profileContent: state.user,
+  loadedContentType: 'bio',
+  editingProfile: false,
+  loadingContent: false,
+  user: { ...state.user, image: state.prevProfileImage },
+
+});
+
+const editUserProfileSucceeded = (state, action) => ({
+  ...state,
+  user: { ...state.user, ...action.profile },
+  profileContent: { ...state.user, ...action.profile },
+  loadingProfile: false,
+  editingProfile: false,
+  savingProfile: false
+});
+
+const editUserProfileStart = state => ({
+  ...state,
+  savingProfile: true
+});
+
+const changingProfileImageStart = state => ({
+  ...state,
+  changingProfileImage: true
+});
+
+const changingProfileImageSucceeded = (state, action) => ({
+  ...state,
+  user: { ...state.user, image: action.imageUrl },
+  changingProfileImage: false,
+});
+
+const changingProfileImageFailed = state => ({
+  ...state,
+  changingProfileImage: false,
+});
+
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -58,6 +122,22 @@ const profileReducer = (state = initialState, action) => {
       return getProfileContentSucceeded(state, action);
     case actions.GET_PROFILE_CONTENT_FAILED:
       return getProfileContentFailed(state, action);
+    case actions.FETCH_USER_BIO:
+      return setUserBio(state, action);
+    case actions.EDIT_PROFILE_START:
+      return editUserProfile(state);
+    case actions.EDIT_PROFILE_CANCELLED:
+      return editUserProfileCancelled(state);
+    case actions.EDIT_PROFILE_SUCCEEDED:
+      return editUserProfileSucceeded(state, action);
+    case actions.SAVE_EDITED_PROFILE_START:
+      return editUserProfileStart(state, action);
+    case actions.CHANGING_PROFILE_IMAGE_START:
+      return changingProfileImageStart(state);
+    case actions.CHANGING_PROFILE_IMAGE_SUCCEEDED:
+      return changingProfileImageSucceeded(state, action);
+    case actions.CHANGING_PROFILE_IMAGE_FAILED:
+      return changingProfileImageFailed(state);
     default:
       return state;
   }

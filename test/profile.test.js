@@ -85,7 +85,7 @@ describe('<ProfileFollowingCard/>', () => {
 
 describe('Profile reducers', () => {
   const initialState = {
-    user: {},
+    user: { profile: {} },
     profileContent: null,
     loadingProfile: false,
     loadingContent: false,
@@ -102,7 +102,11 @@ describe('Profile reducers', () => {
       loadingContent: false,
       loadedContentType: 'articles',
       loadingFailed: false,
-      error: null
+      error: null,
+      editingProfile: false,
+      savingProfile: false,
+      changingProfileImage: false,
+      prevProfileImage: '',
     });
   });
 
@@ -116,7 +120,8 @@ describe('Profile reducers', () => {
   it('should change loadingContent to false', () => {
     expect(ProfileReducer(initialState, actions.getProfileContentFailed())).toEqual({
       ...initialState,
-      loadingContent: false
+      loadingContent: false,
+      editingProfile: false
     });
   });
 
@@ -127,15 +132,7 @@ describe('Profile reducers', () => {
     });
   });
 
-  it('should change load a new profile', () => {
-    expect(ProfileReducer(initialState, actions.getProfileSucceeded())).toEqual({
-      ...initialState,
-      user: actions.profile,
-      loadingProfile: false
-    });
-  });
-
-  it('should change load a new content', () => {
+  it('should load a new content', () => {
     expect(ProfileReducer(initialState, actions.getProfileContentSucceeded())).toEqual({
       ...initialState,
       loadingContent: false,
@@ -150,6 +147,77 @@ describe('Profile reducers', () => {
       ...initialState,
       loadingProfile: false,
       loadingFailed: true
+    });
+  });
+
+  it('should set user bio', () => {
+    expect(ProfileReducer(initialState, actions.getUserBio())).toEqual({
+      ...initialState,
+      loadedContentType: 'bio',
+      profileContent: initialState.user,
+      loadingContent: false,
+      editingProfile: false,
+    });
+  });
+
+  it('should start edit user profile', () => {
+    expect(ProfileReducer(initialState, actions.editProfileStart())).toEqual({
+      ...initialState,
+      profileContent: initialState.user,
+      loadedContentType: 'bio',
+      editingProfile: true,
+      loadingContent: false,
+    });
+  });
+
+  it('should cancel edit user profile', () => {
+    expect(ProfileReducer(initialState, actions.editProfileCancelled())).toEqual({
+      ...initialState,
+      profileContent: initialState.user,
+      loadedContentType: 'bio',
+      editingProfile: false,
+      loadingContent: false,
+      user: { ...initialState.user, image: initialState.prevProfileImage },
+    });
+  });
+
+  it('should edit user profile', () => {
+    expect(ProfileReducer(initialState, actions.updateProfileSucceeded())).toEqual({
+      ...initialState,
+      user: { ...initialState.user, ...actions.profile },
+      profileContent: { ...initialState.user, ...actions.profile },
+      loadingProfile: false,
+      editingProfile: false,
+      savingProfile: false
+    });
+  });
+
+  it('should start saving edited user profile', () => {
+    expect(ProfileReducer(initialState, actions.saveEditProfileStart())).toEqual({
+      ...initialState,
+      savingProfile: true
+    });
+  });
+
+  it('should start changing user profile image', () => {
+    expect(ProfileReducer(initialState, actions.changingProfileImageStart())).toEqual({
+      ...initialState,
+      changingProfileImage: true
+    });
+  });
+
+  it('should change user profile image', () => {
+    expect(ProfileReducer(initialState, actions.changingProfileImageSucceeded())).toEqual({
+      ...initialState,
+      user: { ...initialState.user, image: actions.imageUrl },
+      changingProfileImage: false,
+    });
+  });
+
+  it('change user profile image failed', () => {
+    expect(ProfileReducer(initialState, actions.changingProfileImageFailed())).toEqual({
+      ...initialState,
+      changingProfileImage: false,
     });
   });
 });
@@ -213,6 +281,71 @@ describe('Profile actions', () => {
       type: types.GET_PROFILE_CONTENT_FAILED,
     };
     expect(actions.getProfileContentFailed()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type EDIT_PROFILE_SUCCEEDED', () => {
+    const expectedAction = {
+      type: types.EDIT_PROFILE_SUCCEEDED,
+      profile: 'SOME-PROFILE'
+    };
+    expect(actions.updateProfileSucceeded('SOME-PROFILE')).toEqual(expectedAction);
+  });
+
+  it('should create an action of type EDIT_PROFILE_START', () => {
+    const expectedAction = {
+      type: types.EDIT_PROFILE_START
+    };
+    expect(actions.editProfileStart()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type EDIT_PROFILE_CANCELLED', () => {
+    const expectedAction = {
+      type: types.EDIT_PROFILE_CANCELLED
+    };
+    expect(actions.editProfileCancelled()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type SAVE_EDITED_PROFILE_START', () => {
+    const expectedAction = {
+      type: types.SAVE_EDITED_PROFILE_START
+    };
+    expect(actions.saveEditProfileStart()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type EDIT_PROFILE_FAILED', () => {
+    const expectedAction = {
+      type: types.EDIT_PROFILE_FAILED
+    };
+    expect(actions.editProfileFailed()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type FETCH_USER_BIO', () => {
+    const expectedAction = {
+      type: types.FETCH_USER_BIO
+    };
+    expect(actions.getUserBio()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type CHANGING_PROFILE_IMAGE_START', () => {
+    const expectedAction = {
+      type: types.CHANGING_PROFILE_IMAGE_START
+    };
+    expect(actions.changingProfileImageStart()).toEqual(expectedAction);
+  });
+
+  it('should create an action of type CHANGING_PROFILE_IMAGE_SUCCEEDED', () => {
+    const expectedAction = {
+      type: types.CHANGING_PROFILE_IMAGE_SUCCEEDED,
+      imageUrl: 'SOME-IMAGEURL'
+    };
+    expect(actions.changingProfileImageSucceeded('SOME-IMAGEURL')).toEqual(expectedAction);
+  });
+
+  it('should create an action of type CHANGING_PROFILE_IMAGE_FAILED', () => {
+    const expectedAction = {
+      type: types.CHANGING_PROFILE_IMAGE_FAILED
+    };
+    expect(actions.changingProfileImageFailed()).toEqual(expectedAction);
   });
 
   it('should create an action of type GET_PROFILE_CONTENT_STARTED and GET_PROFILE_CONTENT_SUCCEEDED if successful', () => {
@@ -329,6 +462,85 @@ describe('Profile actions', () => {
     ];
     const store = mockStore({});
     return store.dispatch(actions.getProfile('2aec1bef'))
+      .then(() => {
+        const actualActions = store.getActions().map(action => action.type);
+        expect(actualActions).toEqual(expectedActions);
+      });
+  });
+
+  it('should create an action of type SAVE_EDITED_PROFILE_START and EDIT_PROFILE_SUCCEEDED if successful', () => {
+    api.client.patch = jest.fn().mockReturnValue(Promise.resolve({
+      data: {
+        body: JSON.stringify({}),
+        data: {
+          user: {},
+          profileContent: null,
+          loadingProfile: false,
+          loadingContent: false,
+          loadedContentType: 'articles',
+          loadingFailed: false,
+          error: null,
+          editingProfile: false,
+          savingProfile: false,
+          changingProfileImage: false,
+          prevProfileImage: '',
+        }
+      }
+    }));
+
+    const expectedActions = [
+      'SAVE_EDITED_PROFILE_START',
+      'EDIT_PROFILE_SUCCEEDED'
+    ];
+    const store = mockStore({});
+    return store.dispatch(actions.saveEditedProfile({}))
+      .then(() => {
+        const actualActions = store.getActions().map(action => action.type);
+        expect(actualActions).toEqual(expectedActions);
+      });
+  });
+
+  it('should create an action of type SAVE_EDITED_PROFILE_START and EDIT_PROFILE_SUCCEEDED if successful', () => {
+    api.client.patch = jest.fn().mockReturnValue(Promise.reject(new Error('An error occured')));
+
+    const expectedActions = [
+      'SAVE_EDITED_PROFILE_START',
+      'EDIT_PROFILE_FAILED'
+    ];
+    const store = mockStore({});
+    return store.dispatch(actions.saveEditedProfile({}))
+      .then(() => {
+        const actualActions = store.getActions().map(action => action.type);
+        expect(actualActions).toEqual(expectedActions);
+      });
+  });
+
+  it('should create an action of type CHANGING_PROFILE_IMAGE_START and CHANGING_PROFILE_IMAGE_SUCCEEDED if successful', () => {
+    api.client.patch = jest.fn().mockReturnValue(Promise.resolve({
+      data: {
+        body: JSON.stringify({}),
+        data: {
+          user: {},
+          profileContent: null,
+          loadingProfile: false,
+          loadingContent: false,
+          loadedContentType: 'articles',
+          loadingFailed: false,
+          error: null,
+          editingProfile: false,
+          savingProfile: false,
+          changingProfileImage: false,
+          prevProfileImage: '',
+        }
+      }
+    }));
+
+    const expectedActions = [
+      'CHANGING_PROFILE_IMAGE_START',
+      'CHANGING_PROFILE_IMAGE_FAILED'
+    ];
+    const store = mockStore({});
+    return store.dispatch(actions.changeProfileImage('someimage'))
       .then(() => {
         const actualActions = store.getActions().map(action => action.type);
         expect(actualActions).toEqual(expectedActions);

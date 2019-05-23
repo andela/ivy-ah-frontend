@@ -112,3 +112,51 @@ div.test-content-profile {
     border: none;
   }
 }
+
+.profile-bio {
+  .label {
+    color: rgb(131, 131, 131) !important;
+  }
+  input {
+    background-color: #fff !important;
+    border: 0px solid transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    font-size: 1.3rem !important;
+    color: #000000 !important;
+    background-color: rgb(247, 247, 247) !important;
+    font-weight: bold !important; 
+
+    &:disabled {
+      color: #000000 !important;
+      opacity:  1;
+      background-color: rgb(255, 255, 255) !important;
+    }
+  }
+
+  textarea {
+    border: 0px solid transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+
+  .ui.disabled.input{
+    color: #000000 !important;
+    opacity:  1;
+    background-color: rgb(255, 255, 255) !important;
+    width: 30rem !important;
+  }
+
+}
+
+.profileError {
+  color: red !important;
+  display: block !important;
+}
+
+
+.ui.form .field :disabled {
+  pointer-events: none!important;
+  opacity: 1!important;
+}

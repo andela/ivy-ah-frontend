@@ -11,6 +11,14 @@ export const client = axios.create({
   },
 });
 
+export const uploadProfileImage = (file) => {
+  const url = 'https://api.cloudinary.com/v1_1/dcfc113t5/image/upload';
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'ivyteam');
+  return axios.post(url, formData, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+};
+
 const urlParams = new URLSearchParams(window.location.search);
 const resetToken = urlParams.get('resetToken');
 export const signup = params => client.post('/users/signup', params);
@@ -39,3 +47,4 @@ export const fetchArticles = (page, limit) => client.get('/articles/', { params:
 export const addArticle = article => client.post('/articles', article);
 export const rateArticle = article => client.post('/articles/rating', article);
 export const fetchLatestArticleHype = articleId => client.get(`/articles/rating/${articleId}`);
+export const updateProfile = params => client.patch('/users', params);
