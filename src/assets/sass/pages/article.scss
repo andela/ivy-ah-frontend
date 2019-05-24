@@ -117,6 +117,11 @@
   cursor: pointer;
 }
 
+.tag-report {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tags {
   margin: 20px 0;
   display: flex;
@@ -139,11 +144,16 @@
   margin-bottom: 5px;
 }
 
+div.report{
+  padding-top: 25px;
+    margin-right: 35px;
+}
 .author-metadata {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   margin-bottom: 10px;
+  flex-flow: row wrap;
 }
 
 .author-bio {

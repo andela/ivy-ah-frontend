@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { ToastContainer } from 'react-toastify';
+import ReportModalSection from './ReportModalSection';
 import ArticleContent from './ArticleContent';
 import ArticleMetadata from './ArticleMetadata';
 import ArticleTag from './ArticleTag';
@@ -13,7 +15,8 @@ const ArticlePage = ({
   article: { data },
   totalArticleHype,
   loading,
-  error
+  error,
+  id
 }) => {
   if (error) {
     return <Redirect to="/notFound" />;
@@ -41,10 +44,14 @@ const ArticlePage = ({
       </Helmet>
       <ArticleMetadata data={data} totalArticleHype={totalArticleHype} />
       <ArticleContent className="article-body" body={data.body} />
-      <div className="tags">
-        <ArticleTag tagList={data.tagList} />
+      <div className="tag-report">
+        <div className="tags">
+          <ArticleTag tagList={data.tagList} />
+        </div>
+        <div className="report"><ReportModalSection articleid={id} /></div>
       </div>
       <div className="ui grid">
+
         <div className="four column row bio-ratings">
           <AuthorMetadata
             user={data.user}
@@ -53,9 +60,11 @@ const ArticlePage = ({
           <div className="social-ratings">
             <Ratings />
             <SocialMedia data={data} title={data.title} />
+
           </div>
         </div>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   ) : (
     <div />
@@ -76,7 +85,8 @@ ArticlePage.propTypes = {
   }).isRequired,
   loading: PropTypes.bool,
   error: PropTypes.bool,
-  totalArticleHype: PropTypes.number
+  totalArticleHype: PropTypes.number,
+  id: PropTypes.string.isRequired
 };
 
 ArticlePage.defaultProps = {

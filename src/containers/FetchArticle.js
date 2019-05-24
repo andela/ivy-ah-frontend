@@ -10,7 +10,6 @@ export const Article = ({
   useEffect(() => {
     fetchArticleHandler(match.params.id);
   }, []);
-
   return (
     <div>
       <ArticlePage
@@ -19,6 +18,7 @@ export const Article = ({
         error={error}
         totalArticleHype={totalArticleHype}
         comments={comments}
+        id={match.params.id}
       />
     </div>
   );

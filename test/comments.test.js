@@ -4,12 +4,13 @@ import MockAdapter from 'axios-mock-adapter';
 import { createStore } from 'redux';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import CommentInput from 'Components/comments/CommentInput';
-import commentReducer from 'Reducers/comment';
-import Comment from 'Components/comments/Comment';
-import CommentBox from 'Components/comments/CommentBox';
-import * as commentActions from 'Actions/comment';
-import * as articleActions from 'Actions/articleActions';
+import { MemoryRouter } from 'react-router-dom';
+import CommentInput from '../src/components/comments/CommentInput';
+import commentReducer from '../src/reducers/comment';
+import Comment from '../src/components/comments/Comment';
+import CommentBox from '../src/components/comments/CommentBox';
+import * as commentActions from '../src/actions/comment';
+import * as articleActions from '../src/actions/articleActions';
 import * as api from '../src/api';
 
 const mockStore = configureStore([thunk]);
@@ -244,7 +245,9 @@ describe('Test CommentBox Component', () => {
       ],
     };
 
-    const wrapper = mount(<CommentBox {...props} />);
+    const wrapper = mount(<MemoryRouter>
+      <CommentBox {...props} />
+    </MemoryRouter>);
     expect(wrapper.find('.comment-details').length).toEqual(4);
     wrapper.find('.more-comments-btn').simulate('click');
     expect(wrapper.find('.comment-details').length).toEqual(7);

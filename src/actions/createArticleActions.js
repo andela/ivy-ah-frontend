@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import * as api from '../api';
 import * as actions from './actionTypes';
 
@@ -21,6 +22,10 @@ export const createArticle = article => (dispatch) => {
   const body = JSON.stringify(article);
   return api.addArticle(body).then((res) => {
     dispatch(createArticleSuccess(res.data));
+    toast.success('Article has successfully been created');
   })
-    .catch((error) => { dispatch(createArticleFailure(error)); });
+    .catch((error) => {
+      dispatch(createArticleFailure(error));
+      toast.error('An Error occured');
+    });
 };

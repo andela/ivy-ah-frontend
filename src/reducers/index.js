@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import reportArticleReducer from 'Reducers/reportArticleReducer';
 import AuthReducer from './auth';
 import singleArticleReducer from './singleArticleReducer';
 import articleReducer from './article';
@@ -9,6 +10,7 @@ import profileReducer from './profile';
 import createArticleReducer from './articlesReducer';
 import commentReducer from './comment';
 
+
 const rootReducer = combineReducers({
   auth: AuthReducer,
   bookmarkReducer,
@@ -18,7 +20,8 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   articleReducer,
   createArticleReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  reportArticleReducer
 });
 
 export default rootReducer;
