@@ -1,3 +1,7 @@
+.profile-outer-container {
+  padding-top: 1.5rem;
+}
+
 .profile-container {
   width: 90%;
   margin: 0 auto;
@@ -36,12 +40,17 @@
    border: 0px transparent !important;
 }
 
+  & > .ui.cards {
+    position: relative
+  }
+
 
   &-wrapper {
-    width: 100%;
+    width: max-content;
   }
 
   &-readtime {
+    width: 17rem;
     color: grey !important;
     margin-top: 2px !important;
   }
@@ -52,6 +61,7 @@
       font-size: 1.2rem !important;
       font-weight: bold !important;
       display: inline-block;
+      margin-bottom: 0;
     }
     &-image {
       display: inline-block;
@@ -108,4 +118,27 @@
 
 .profileBtn {
   color: green !important;
+}
+
+.article-edit-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-top: 10px;
+}
+
+button.article-edit-button {
+  border: none;
+  outline: none;
+  width: 5rem;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+
+  &.edit {
+    color: #af7406;
+  }
+
+  &.delete {
+    color: red;
+  }
 }

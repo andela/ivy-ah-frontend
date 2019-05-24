@@ -42,7 +42,8 @@ export const signUp = (firstname, lastname, email, password) => (dispatch) => {
   };
   signup(authData)
     .then((response) => {
-      dispatch(verifyEmail(response.data.user.email));
+      const { userid, token } = response.data.user;
+      dispatch(authSuccess(token, userid, response.data.user.email));
       dispatch(fetchBookmarks());
     })
     .catch((err) => {

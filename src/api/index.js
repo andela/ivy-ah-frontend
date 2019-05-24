@@ -66,3 +66,5 @@ export const reportArticle = article => client.post('/articles/report', article)
 export const followUser = authorId => client.post(`/profiles/${authorId}/follow`);
 export const unFollowUser = authorId => client.delete(`/profiles/${authorId}/follow`);
 export const fetchUserFollowing = userId => client.get(`profiles/${userId}/following`);
+export const updateArticle = (articleId, article) => client.patch(`/articles/${articleId}`, article);
+export const deleteArticle = articleId => client.delete(`articles/${articleId}`);
