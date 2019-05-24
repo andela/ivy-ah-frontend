@@ -147,7 +147,9 @@ const CreateArticlePage = (props) => {
 
 CreateArticlePage.propTypes = {
   createNewArticle: PropTypes.func.isRequired,
-  createdArticle: PropTypes.shape({ article: PropTypes.object() }).isRequired
+  createdArticle: PropTypes.shape({
+    article: PropTypes.object
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
