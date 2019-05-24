@@ -8,6 +8,8 @@ import { Message } from 'semantic-ui-react';
 import { WithContext as ReactTagInput } from 'react-tag-input';
 import { Editor } from 'react-draft-wysiwyg';
 import Textarea from 'react-textarea-autosize';
+import { Redirect } from 'react-router-dom';
+
 import { createArticle } from '../actions/createArticleActions';
 import Header from './Header';
 
@@ -72,7 +74,10 @@ const CreateArticlePage = (props) => {
     formData.append('upload_preset', 'ivyteam');
     return axios.post(url, formData, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
   };
-
+  const { createdArticle: { article } } = props;
+  if (article) {
+    return <Redirect to={`/article/${article.id}`} />;
+  }
   return (
     <div className="create-article-container">
       <Header />
@@ -142,6 +147,7 @@ const CreateArticlePage = (props) => {
 
 CreateArticlePage.propTypes = {
   createNewArticle: PropTypes.func.isRequired,
+  createdArticle: PropTypes.shape({ article: PropTypes.object() }).isRequired
 };
 
 const mapStateToProps = (state) => {
