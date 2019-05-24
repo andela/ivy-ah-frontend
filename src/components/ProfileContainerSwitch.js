@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const ProfileContainerSwitch = ({
-  isMobile, setListRef, setContentRef, signout, user
+  isMobile, setListRef, setContentRef, signout, user, clearEditor, editorOpen
 }) => (isMobile ? (
   <div className="profile-content-mobile">
     <div className="test-content-profile-mobile">
@@ -11,16 +11,18 @@ const ProfileContainerSwitch = ({
         <div className="profile-menu-content mobile first">
           <img
             className="profile-menu-image"
-            src={`https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${user.firstname}+${user.lastname}`}
+            src={user.image || `https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${user.firstname}+${user.lastname}`}
             alt={`${user.firstname}`}
           />
           <p className="profile-menu-name">
             {`${user.firstname} ${user.lastname}`}
           </p>
         </div>
+        {!editorOpen && (
         <Link to="/createarticle">
-          <button type="button" className="side-menu button primary">New story</button>
+          <button type="button" onClick={clearEditor} className="side-menu button primary">New story</button>
         </Link>
+        )}
         <Link to="/profile">
           <button type="button" className="side-menu button primary">Profile</button>
         </Link>
@@ -35,16 +37,18 @@ const ProfileContainerSwitch = ({
         <div className="profile-menu-content first">
           <img
             className="profile-menu-image"
-            src={`https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${user.firstname}+${user.lastname}`}
+            src={user.image || `https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${user.firstname}+${user.lastname}`}
             alt={`${user.firstname}`}
           />
           <p className="profile-menu-name">
             {`${user.firstname} ${user.lastname}`}
           </p>
         </div>
+        {!editorOpen && (
         <Link to="/createarticle">
-          <button type="button" className="profile-menu-content">New story</button>
+          <button type="button" onClick={clearEditor} className="profile-menu-content">New story</button>
         </Link>
+        )}
         <Link to={`/profile/${user.id}`}>
           <button type="button" className="profile-menu-content">Profile</button>
         </Link>
@@ -59,6 +63,8 @@ ProfileContainerSwitch.propTypes = {
   setContentRef: PropTypes.func.isRequired,
   signout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  clearEditor: PropTypes.func.isRequired,
+  editorOpen: PropTypes.bool.isRequired,
 };
 
 export default ProfileContainerSwitch;

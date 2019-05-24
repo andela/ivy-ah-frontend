@@ -115,6 +115,16 @@ const removeProfileBookmark = (state, action) => ({
   loadedContentType: 'bookmarks'
 });
 
+const articleDelete = (state, action) => ({
+  ...state,
+  profileContent: {
+    ...state.profileContent,
+    articles: state.profileContent.articles
+      .filter(article => article.id !== action.payload),
+  },
+  loadedContentType: 'articles'
+});
+
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_PROFILE_STARTED:
@@ -147,6 +157,8 @@ const profileReducer = (state = initialState, action) => {
       return changingProfileImageFailed(state);
     case actions.REMOVE_PROFILE_BOOKMARK:
       return removeProfileBookmark(state, action);
+    case actions.DELETE_ARTICLE_SUCCEEDED:
+      return articleDelete(state, action);
     default:
       return state;
   }
