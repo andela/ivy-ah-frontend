@@ -31,7 +31,7 @@ const forgPassword = (props) => {
       </div>
     </div>
   ) : (
-    <Redirect to="/forgotPasswordo" />
+    <Redirect to="/requestSent" />
   );
 };
 

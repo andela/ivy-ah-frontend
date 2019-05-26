@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import ProfileContainerSwitch from '../components/ProfileContainerSwitch';
 
-const ProfileContainer = () => {
+const ProfileContainer = ({ signout, user }) => {
   let listRef;
   let contentRef;
   let profileRef;
@@ -18,53 +19,55 @@ const ProfileContainer = () => {
     if (!listRef) { return; }
     if (listRef.classList.contains('opens') || isOutside === true) {
       listRef.classList.remove('opens');
-      if (isMobile) {
-        listRef.style.removeProperty('left');
-      } else {
-        listRef.style.height = 0;
-      }
+      listRef.style.height = 0;
     } else {
       listRef.classList.add('opens');
-      if (isMobile) {
-        listRef.style.left = '0px';
-      } else {
-        listRef.style.height = `${contentRef.offsetHeight}px`;
-      }
+      listRef.style.height = `${contentRef.offsetHeight}px`;
     }
   };
 
   useEffect(() => {
     const menuSwitch = () => {
       setIsMobile(window.innerWidth < 590);
-      if (window.innerWidth < 590 || isMobile) {
+    };
+    const handleOutsideClick = ({ target }) => {
+      if (!profileRef) { return; }
+      if (!profileRef.contains(target)) {
         toggleList(true);
       }
     };
     window.addEventListener('resize', menuSwitch);
-    if (isMobile && profileRef) {
-      const handleOutsideClick = ({ target }) => {
-        if (!profileRef) { return; }
-        if (!profileRef.contains(target)) {
-          toggleList(true);
-          window.removeEventListener('click', handleOutsideClick);
-        }
-      };
-      window.addEventListener('click', handleOutsideClick);
-    }
-    return () => window.removeEventListener('resize', menuSwitch);
+    window.addEventListener('click', handleOutsideClick);
+    return () => {
+      window.removeEventListener('resize', menuSwitch);
+      window.removeEventListener('click', handleOutsideClick);
+    };
   });
 
   return (
     <div ref={setProfileRef} className="profile-container">
-      <button onClick={toggleList} type="button" className="profile-inner-container" />
+      {!isMobile && (
+        <img
+          onClick={toggleList}
+          className="profile-menu-image"
+          src={`https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${user.firstname}+${user.lastname}`}
+          alt={`${user.firstname}`}
+        />
+      )}
       <ProfileContainerSwitch
         isMobile={isMobile}
         setContentRef={setContentRef}
         setListRef={setListRef}
-        toggleList={toggleList}
+        signout={signout}
+        user={user}
       />
     </div>
   );
+};
+
+ProfileContainer.propTypes = {
+  signout: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default ProfileContainer;

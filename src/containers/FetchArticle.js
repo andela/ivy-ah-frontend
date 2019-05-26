@@ -9,17 +9,21 @@ export const Article = ({
 }) => {
   useEffect(() => {
     fetchArticleHandler(match.params.id);
-  }, []);
-  return (
-    <div>
-      <ArticlePage
-        article={article}
-        loading={loading}
-        error={error}
-        totalArticleHype={totalArticleHype}
-        comments={comments}
-        id={match.params.id}
-      />
+  }, [match.params.id]);
+
+  const articleData = article.data ? article.data.id === match.params.id : false;
+
+  return articleData ? (
+    <ArticlePage
+      article={article}
+      loading={loading}
+      error={error}
+      totalArticleHype={totalArticleHype}
+      comments={comments}
+    />
+  ) : (
+    <div className="single-article-loader container">
+      <div className="article ui active centered inline loader" />
     </div>
   );
 };
