@@ -8,7 +8,6 @@
 @import "./components/authTab";
 @import "./components/form";
 @import "./pages/verify";
-@import url('./pages/article.scss');
 @import "./components/title-container.scss";
 @import "./components/upgrade-container.scss";
 @import "./components/footer-container.scss";
@@ -19,4 +18,4 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import "./components/article-preview.scss";
 @import './pages/create-article';
-@import url('./pages/article.scss');
+@import "./pages/article.scss";

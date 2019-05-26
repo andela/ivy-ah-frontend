@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Hype from './Hype';
 import { rateAnArticle } from '../actions/rating';
+import { toggleModal } from '../actions/auth';
 
 export const Rating = ({
-  userCurrentHype, updateHypeError, rateArticleHandler, articleId,
+  userCurrentHype, updateHypeError, rateArticleHandler, articleId, isLoggedIn, requestAuth
 }) => {
   const [hypeHoverIndex, setHoverIndex] = useState(0);
   const [clickedHypeIndex, setHypeIndex] = useState(0);
@@ -37,6 +38,7 @@ export const Rating = ({
   };
 
   const clicked = (position) => {
+    if (!isLoggedIn) { return requestAuth(); }
     rateArticleHandler(articleId, position);
     setHypeIndex(position);
   };
@@ -45,6 +47,7 @@ export const Rating = ({
     const hypes = [];
     for (let i = 1; i <= 5; i += 1) {
       hypes.push(<Hype
+        key={i}
         hovered={hoverPosition}
         mouseLeave={mouseLeave}
         position={i}
@@ -67,18 +70,21 @@ const mapStateToProps = state => ({
   userCurrentHype: state.article.userCurrentHype,
   updateHypeError: state.article.updateHypeError,
   articleId: state.article.article.data.id,
-  isLoggedIn: state.auth.token
+  isLoggedIn: !!state.auth.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   rateArticleHandler: (articleId, position) => dispatch(rateAnArticle(articleId, position)),
+  requestAuth: () => dispatch(toggleModal('sign in')),
 });
 
 Rating.propTypes = {
   updateHypeError: PropTypes.bool.isRequired,
   userCurrentHype: PropTypes.number.isRequired,
   rateArticleHandler: PropTypes.func.isRequired,
-  articleId: PropTypes.string.isRequired
+  articleId: PropTypes.string.isRequired,
+  requestAuth: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rating);

@@ -19,6 +19,8 @@ button.profile-inner-container {
 }
 
 div.profile-content-list {
+  margin-top: 0.4rem;
+  min-width: 14rem;
   width: max-content;
   position: absolute;
   top: 100%;
@@ -26,12 +28,14 @@ div.profile-content-list {
   height: 0;
   transition: height 0.3s ease-in-out;
   overflow-y: hidden;
+  filter: drop-shadow(2.5px 2.5px 5px #0000003d);
 }
 
 div.test-content-profile {
   width: 100%;
   height: max-content;
   position: relative;
+  clip-path: polygon(100% 1rem, calc(100% - 0.7rem) 1rem, calc(100% - 1.7rem) 0%, calc(100% - 2.7rem) 1rem, 0% 1rem, 0% 100%, 100% 100%);
 }
 
 .profile-menu-content {
@@ -44,16 +48,19 @@ div.test-content-profile {
   background: white;
 
   &.first {
-    border-bottom: 1px solid #C4C4C4;
     display: flex;
     align-items: center;
+    padding-top: 1.5rem;
+  }
+
+  &.mobile {
+    padding: 0;
   }
 };
 
 
 .profile-menu-image {
   display: inline-block;
-  border: 1px solid #3157be;
   width: 3em;
   height: 3em;
   border-radius: 100%;
@@ -74,10 +81,6 @@ div.test-content-profile {
   background: white;
 }
 
-.profile-content-container {
-  border: 1px solid #cccccd;
-};
-
 .side-menu.profile-content-list {
   position: fixed;
   top: 0;
@@ -90,12 +93,15 @@ div.test-content-profile {
   transition: left 0.5s ease-in-out;
 }
 
+.profile-content-mobile {
+  width: 100%
+}
+
 @media only screen and (max-width: 590px) {
   div.profile-container {
     height: max-content;
     width: 100%;
     margin: 0;
-    padding: 1em;
     justify-content: center;
   }
 

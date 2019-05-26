@@ -5,7 +5,7 @@ import { Card, Image, Grid } from 'semantic-ui-react';
 
 const ProfileFollowingCard = ({ follower }) => (
   <Grid.Column>
-    <Link href="profileRedirect" to={`/profileRedirect/${follower.id}`}>
+    <Link href="profile" to={`/profile/${follower.id}`}>
       <div style={{ marginBottom: '2rem' }}>
         <Card fluid>
           <Card.Content>
