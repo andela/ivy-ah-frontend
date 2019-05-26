@@ -45,6 +45,7 @@ export const Rating = ({
     const hypes = [];
     for (let i = 1; i <= 5; i += 1) {
       hypes.push(<Hype
+        key={i}
         hovered={hoverPosition}
         mouseLeave={mouseLeave}
         position={i}

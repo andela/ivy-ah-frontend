@@ -29,7 +29,6 @@ const SignupForm = ({
       handleBlur,
       handleSubmit,
       isSubmitting
-      /* and other goodies */
     }) => {
       const formError = Object.keys(errors)
         .filter(keys => keys in touched)
@@ -143,7 +142,7 @@ SignupForm.propTypes = {
   submit: PropTypes.func,
   signedUp: PropTypes.bool,
   loading: PropTypes.bool,
-  authError: PropTypes.oneOf(['null', null, PropTypes.object]).isRequired
+  authError: PropTypes.oneOf(['null', null, PropTypes.object]),
 };
 
 const defaultFunc = input => input;
@@ -151,7 +150,8 @@ const defaultFunc = input => input;
 SignupForm.defaultProps = {
   signedUp: false,
   loading: false,
-  submit: defaultFunc
+  submit: defaultFunc,
+  authError: null,
 };
 
 export default SignupForm;

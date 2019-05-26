@@ -151,14 +151,14 @@ const mapDispatchToProps = dispatch => ({
 Auth.propTypes = {
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  error: PropTypes.oneOf(['null', null, PropTypes.object]).isRequired,
+  error: PropTypes.oneOf(['null', null, PropTypes.object]),
   onLogin: PropTypes.func,
   onSignup: PropTypes.func,
   openModal: PropTypes.bool.isRequired,
   onToggleModal: PropTypes.func,
   modalPane: PropTypes.string,
   shouldRedirect: PropTypes.bool.isRequired,
-  userEmail: PropTypes.string.isRequired,
+  userEmail: PropTypes.string,
 };
 
 const defaultFunc = input => input;
@@ -167,7 +167,9 @@ Auth.defaultProps = {
   onLogin: defaultFunc,
   onSignup: defaultFunc,
   onToggleModal: defaultFunc,
-  modalPane: 'sign in'
+  modalPane: 'sign in',
+  userEmail: '',
+  error: null,
 };
 
 export default connect(mapStateToProps,

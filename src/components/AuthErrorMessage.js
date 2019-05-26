@@ -26,6 +26,7 @@ const AuthErrorMessage = ({ error, hidden }) => {
 
 AuthErrorMessage.propTypes = {
   hidden: PropTypes.bool.isRequired,
-  error: PropTypes.oneOf(['null', {}]).isRequired
+  error: PropTypes.any.isRequired
 };
+
 export default AuthErrorMessage;
