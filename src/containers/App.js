@@ -13,6 +13,7 @@ import ArticleHeader from 'Components/ArticleHeader';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import Articles from 'Containers/ArticleContainer';
+import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
 
@@ -39,6 +40,7 @@ const App = () => (
   <Router>
     <Auth />
     <Switch>
+      <Route path="/follow" component={Follow} />
       <Route path="/forgotPassword" exact component={ForgotPasswordContainer} />
       <Route path="/resetPassword" exact component={ResetPasswordContainer} />
       <Route path="/requestSent" exact component={PasswordLinkSent} />
