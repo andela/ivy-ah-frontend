@@ -2,6 +2,12 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  output: {
+    chunkFilename: '[name].[chunkhash].js',
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
@@ -17,7 +23,7 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: /\.(png|jpeg|jpg|gif|svg)$/,
+        test: /\.(png|jp(e*)g|svg|gif|ttf|woff|woff2|eot)$/,
         use: [
           {
             loader: 'file-loader',
@@ -25,30 +31,9 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          }
-        ]
-      },
-      {
-        test: /plugin\.css$/,
-        loaders: [
-          'style-loader', 'css-loader',
-        ],
-      },
     ]
   },
 
-  output: {
-    chunkFilename: '[name].[chunkhash].js',
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    sourceMapFilename: 'bundle.map',
-    publicPath: '/'
-  },
   devtool: '#source-map',
   optimization: {
     splitChunks: {
@@ -66,6 +51,7 @@ module.exports = {
     },
     minimizer: [new UglifyJsPlugin()]
   },
+
   resolve: {
     alias: {
       Actions: path.resolve(__dirname, 'src/actions/'),

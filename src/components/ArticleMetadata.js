@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import hypeIcon from 'Assets/sass/components/assets/hype-icon.svg';
 
 const ArticleMetadata = ({
   data: {
@@ -26,7 +25,7 @@ const ArticleMetadata = ({
     </div>
     <div className="ui horizontal link list hype-premium">
       <span className="item">
-        <img src={hypeIcon} alt="hype-icon" className="hype article-icon" />
+        <img src="https://res.cloudinary.com/politic/image/upload/v1558961389/hype-icon.svg" alt="hype-icon" className="hype article-icon" />
         <span className="hype-text">
           {totalArticleHype >= 1000 ? (totalArticleHype / 1000).toFixed(1) : totalArticleHype}
           {' Hypes'}

@@ -62,7 +62,7 @@ const CategoryContainer = () => {
     <div className="main-category-container">
       <div className="category-container">
         <button ref={(ref) => { leftBtn = ref; }} onClick={scrollLeft} type="button" className="direction-button left">
-          <i className="chevron left icon" />
+          <i className="fas fa-chevron-left" />
         </button>
         <div ref={(ref) => { category = ref; }} className="outer-category-container">
           <div ref={(ref) => { if (!ref) { return; } contentWidth = ref.offsetWidth; }} className="inner-category-container">
@@ -87,7 +87,7 @@ const CategoryContainer = () => {
           </div>
         </div>
         <button ref={(ref) => { rightBtn = ref; }} onClick={scrollRight} type="button" className="direction-button right">
-          <i className="chevron right icon" />
+          <i className="fas fa-chevron-right" />
         </button>
       </div>
     </div>

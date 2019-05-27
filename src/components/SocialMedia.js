@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import facebookIcon from '../assets/sass/components/assets/facebook-icon.svg';
-import twitterIcon from '../assets/sass/components/assets/twitter-icon.svg';
-import mailIcon from '../assets/sass/components/assets/mail-icon.svg';
 import * as socialSharing from '../helpers/socialSharing';
 
 const articleUrl = window.location.toString();
@@ -14,21 +11,21 @@ const SocialMedia = ({ title }) => (
       type="button"
       onClick={() => (socialSharing.facebookShare(title, articleUrl))}
     >
-      <img src={facebookIcon} alt="facebook-logo" />
+      <img src="https://res.cloudinary.com/politic/image/upload/v1558961287/facebook-icon.svg" alt="facebook-logo" />
     </button>
     <button
       id="twitter"
       type="button"
       onClick={() => (socialSharing.twitterShare(title, articleUrl))}
     >
-      <img src={twitterIcon} alt="twitter-logo" />
+      <img src="https://res.cloudinary.com/politic/image/upload/v1558961108/twitter-icon.svg" alt="twitter-logo" />
     </button>
     <button
       id="email"
       type="button"
       onClick={() => (socialSharing.emailShare(title, articleUrl))}
     >
-      <img src={mailIcon} alt="mail-logo" />
+      <img src="https://res.cloudinary.com/politic/image/upload/v1558961423/mail-icon.svg" alt="mail-logo" />
     </button>
   </div>
 );

@@ -13,7 +13,7 @@ const ReportModalSection = (props) => {
         <Icon
           key="button1"
           color="grey"
-          name="bullhorn"
+          className="fas fa-bullhorn"
           onClick={
             () => {
               setModal(true);

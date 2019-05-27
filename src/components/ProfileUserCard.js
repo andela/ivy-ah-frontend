@@ -19,7 +19,7 @@ const ProfileUserCard = ({
           style={{ margin: '0 auto' }}
           src={
             changingProfileImage
-              ? '/assets/sass/components/assets/Spinner-1s-200px.svg'
+              ? 'https://res.cloudinary.com/politic/image/upload/v1558961149/Spinner-1s-200px.svg'
               : profile.image
                 ? profile.image
                 : `https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${

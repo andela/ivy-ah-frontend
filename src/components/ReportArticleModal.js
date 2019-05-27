@@ -72,7 +72,7 @@ Terms and conditions
         />
         <Button
           type="button"
-          icon="bullhorn"
+          className="fas fa-bullhorn"
           color="blue"
           loading={loading}
           labelPosition="right"
