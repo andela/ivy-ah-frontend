@@ -11,8 +11,8 @@ import Article from 'Containers/FetchArticle';
 import Profile from 'Containers/Profile';
 import ArticleHeader from 'Components/ArticleHeader';
 import Footer from 'Components/Footer';
+import Header from 'Components/Header';
 import Articles from 'Containers/ArticleContainer';
-import { profileRedirect } from '../helpers/profileHelper';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
 
@@ -20,15 +20,17 @@ const articles = () => (
   <div>
     <ArticleHeader />
     <Articles />
-    <Footer />
     <div style={{ display: 'none' }} id="background" className="background effect" />
   </div>
 );
 
 const singleArticle = ({ match }) => (
-  <div className="article-view">
-    <Article match={match} />
-    <CommentContainer />
+  <div className="single-article-page">
+    <Header />
+    <div className="article-view">
+      <Article match={match} />
+      <CommentContainer match={match} />
+    </div>
   </div>
 );
 
@@ -44,11 +46,6 @@ const App = () => (
       <Route path="/verify-email" component={Verify} />
       <Route path="/article/:id" component={singleArticle} />
       <Route
-        exact
-        path="/profileRedirect/:id"
-        component={profileRedirect}
-      />
-      <Route
         path="/profile/:id"
         component={Profile}
       />
@@ -57,6 +54,7 @@ const App = () => (
       <Route path="/createarticle" component={createArticlePage} />
       <Route component={NotFound} />
     </Switch>
+    <Footer />
   </Router>
 );
 

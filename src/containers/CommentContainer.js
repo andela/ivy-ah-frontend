@@ -6,8 +6,8 @@ import Comment from '../components/comments/Comment';
 import { toggleModal } from '../actions/auth';
 
 export const CommentContainer = ({
-  articleId, loading, comments, postCommentHandler, error, isAuth, requestAuth
-}) => (
+  articleId, loading, comments, postCommentHandler, error, isAuth, requestAuth, match
+}) => match.params.id === articleId && (
   <div>
     <Comment
       postCommentHandler={postCommentHandler}

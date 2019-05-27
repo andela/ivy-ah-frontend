@@ -18,10 +18,6 @@ const ArticleContainer = ({
     }
   };
 
-  useEffect(() => {
-    if (!currentPage && !isLoading && !error) { fetchData(); }
-  }, [isLoading, error, currentPage]);
-
   let scrolling = false;
 
   const onScroll = () => {
@@ -34,12 +30,19 @@ const ArticleContainer = ({
     window.requestAnimationFrame(onScroll);
   };
 
-  window.onscroll = () => {
+  const watchScroll = () => {
     if (!scrolling) {
       scrolling = true;
       onScroll();
     }
   };
+
+  window.addEventListener('scroll', watchScroll);
+
+  useEffect(() => {
+    if (!currentPage && !isLoading && !error) { fetchData(); }
+    return () => window.removeEventListener('scroll', watchScroll);
+  }, [isLoading, error, currentPage]);
 
   return (
     <div>

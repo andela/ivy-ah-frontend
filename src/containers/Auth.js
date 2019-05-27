@@ -132,7 +132,7 @@ const mapStateToProps = state => ({
   loading: state.auth.loading,
   error: state.auth.error,
   verified: state.auth.verified,
-  isAuthenticated: state.auth.token !== null,
+  isAuthenticated: !!state.auth.token,
   openModal: state.auth.openModal,
   modalPane: state.auth.modalPane,
   shouldRedirect: state.auth.shouldRedirect,

@@ -55,11 +55,11 @@ const Profile = ({
 
   useEffect(() => {
     getUserProfile(match.params.id);
-  }, []);
+  }, [match.params.id]);
 
   useEffect(() => {
     getArticles(match.params.id);
-  }, []);
+  }, [match.params.id]);
 
   const tabHandler = (event) => {
     if (event.target.text === 'followers') {

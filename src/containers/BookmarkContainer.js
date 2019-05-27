@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBookmarks, removeBookmarks } from '../actions/bookmark';
 import Bookmark from '../components/Bookmark';
+import { toggleModal } from '../actions/auth';
 
 const BookmarkContainer = ({
-  bookmarks, bookmarked, error, articleId, dispatch
+  bookmarks, bookmarked, error, articleId, dispatch, isAuth
 }) => {
   let awaitingBooked;
   let booked;
+
 
   if ((bookmarked === true || bookmarked === false) && !error) {
     awaitingBooked = true;
@@ -19,6 +21,9 @@ const BookmarkContainer = ({
 
   const onClickBookmark = (bookmark, e) => {
     e.stopPropagation();
+    if (!isAuth) {
+      return dispatch(toggleModal('sign in'));
+    }
     if (awaitingBooked) { return; }
     if (bookmark) {
       dispatch(addBookmarks(articleId));
@@ -43,15 +48,17 @@ BookmarkContainer.propTypes = {
   articleId: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
   bookmarked: PropTypes.bool,
+  isAuth: PropTypes.bool.isRequired,
 };
 
 BookmarkContainer.defaultProps = {
   bookmarked: null
 };
 
-const mapStateToProps = ({ bookmarkReducer }, { articleId }) => ({
+const mapStateToProps = ({ bookmarkReducer, auth: { token } }, { articleId }) => ({
   ...bookmarkReducer,
-  articleId
+  articleId,
+  isAuth: !!token,
 });
 
 export default connect(mapStateToProps, null, null, {
