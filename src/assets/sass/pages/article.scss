@@ -1,3 +1,37 @@
+div#root {
+  position: relative;
+  min-height: 100%;
+}
+
+.single-article-page {
+  padding-top: 1.5rem;
+  min-height: 100%;
+}
+
+.single-article-loader.container {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+
+.single-article-page *.ui.primary.button.header-signup {
+  background: #EAEAEA;
+  color: #707276;
+  border-color: #EAEAEA;
+}
+
+.single-article-page *.ui.primary.button.header-signin {
+  color: #707276;
+  border-color: #707276;
+}
+
+.single-article-page *.header-search {
+  background-image: url("pages/assets/searching-magnifying-glass-grey.svg");
+}
+
 .main-editor span {
   font-family: medium-content-sans-serif-font, Lora !important;
   font-size: 21px !important;

@@ -5,7 +5,7 @@ import { Card, Image, Grid } from 'semantic-ui-react';
 
 const ProfileArticleCard = ({ article }) => (
   <Grid.Column>
-    <Link href="article" to={`/article/${article.id}`} replace>
+    <Link href="article" to={`/article/${article.id}`}>
       <div
         style={{ display: 'block' }}
         className="profile-article"

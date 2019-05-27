@@ -1,3 +1,23 @@
+.create-article-container {
+  padding-top: 1.5rem;
+  min-height: 100%;
+}
+
+.create-article-container *.ui.primary.button.header-signup {
+  background: #EAEAEA;
+  color: #707276;
+  border-color: #EAEAEA;
+}
+
+.create-article-container *.ui.primary.button.header-signin {
+  color: #707276;
+  border-color: #707276;
+}
+
+.create-article-container *.header-search {
+  background-image: url("pages/assets/searching-magnifying-glass-grey.svg");
+}
+
 .article-title {
    width: 99.5%;
    min-height: 35px;

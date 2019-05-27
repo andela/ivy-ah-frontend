@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SideMenuBtn from './SideMenuBtn';
 import SideMenu from './SideMenu';
 import { backgroundToggle } from '../helpers/backgroundToggle';
 
-const SideMenuContainer = () => {
+const SideMenuContainer = ({ isAuth, user }) => {
   const [menuState, setMenu] = useState({ open: false });
 
   let sideMenu;
@@ -58,11 +60,29 @@ const SideMenuContainer = () => {
   return (
     <div>
       {menuState.open
-        ? <SideMenu setMenuRef={setMenuRef} onCloseMenu={onButtonClick} closeMenu={closeMenu} />
+        ? (
+          <SideMenu
+            setMenuRef={setMenuRef}
+            onCloseMenu={onButtonClick}
+            closeMenu={closeMenu}
+            isAuth={isAuth}
+            user={user}
+          />
+        )
         : null}
       <SideMenuBtn onOpenMenu={onButtonClick} />
     </div>
   );
 };
 
-export default SideMenuContainer;
+SideMenuContainer.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({ auth: { token, user } }) => ({
+  isAuth: !!token,
+  user
+});
+
+export default connect(mapStateToProps)(SideMenuContainer);
