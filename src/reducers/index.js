@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import reportArticleReducer from 'Reducers/reportArticleReducer';
+import reportArticleReducer from './reportArticleReducer';
 import AuthReducer from './auth';
 import singleArticleReducer from './singleArticleReducer';
 import articleReducer from './article';
