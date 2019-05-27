@@ -1,15 +1,29 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
-const userObject = JSON.parse(localStorage.getItem('user'));
-const token = userObject ? userObject.token : '';
+
+export const getToken = () => store.getState().auth.token;
+
 export const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token
+    Authorization: getToken()
   },
 });
+
+const setToken = (() => {
+  let cacheToken = '';
+  return (token) => {
+    if (cacheToken !== token) {
+      client.defaults.headers.Authorization = token;
+      cacheToken = token;
+    }
+  };
+})();
+
+store.subscribe(() => setToken(getToken()));
 
 export const uploadProfileImage = (file) => {
   const url = 'https://api.cloudinary.com/v1_1/dcfc113t5/image/upload';

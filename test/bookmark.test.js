@@ -139,7 +139,8 @@ describe('fetchBookmark', () => {
   });
 
   it('fetchBookmarks', () => {
-    const getState = {};
+    const getState = { token: 'token' };
+    api.getToken = jest.fn(() => 'token');
     const expectedActions = {
       type: actions.FETCH_BOOKMARKS_SUCCEEDED,
       payload: { bookmarks },

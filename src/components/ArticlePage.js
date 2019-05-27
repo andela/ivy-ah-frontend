@@ -89,6 +89,16 @@ ArticlePage.propTypes = {
   id: PropTypes.string.isRequired
 };
 
+ArticlePage.propTypes = {
+  article: PropTypes.shape({
+    data: PropTypes.object,
+  }).isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  totalArticleHype: PropTypes.number,
+  id: PropTypes.string.isRequired
+};
+
 ArticlePage.defaultProps = {
   loading: true,
   error: false,
