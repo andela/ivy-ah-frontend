@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 
-const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
+const API_BASE_URL = 'http://localhost:3000/api/v1';
 
 export const getToken = () => store.getState().auth.token;
 
@@ -66,3 +66,5 @@ export const reportArticle = article => client.post('/articles/report', article)
 export const followUser = authorId => client.post(`/profiles/${authorId}/follow`);
 export const unFollowUser = authorId => client.delete(`/profiles/${authorId}/follow`);
 export const fetchUserFollowing = userId => client.get(`profiles/${userId}/following`);
+export const updateArticle = (articleId, article) => client.patch(`/articles/${articleId}`, article);
+export const deleteArticle = articleId => client.delete(`articles/${articleId}`);

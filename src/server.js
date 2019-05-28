@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(require('prerender-node').set('prerenderServiceUrl', 'https://service.prerender.io/').set('prerenderToken', 'QW3cj98BGoKzV8C4GSdH'));
 
 app.get('/ping', (req, res) => res.send('pong'));
-app.get('/bundle.js', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'dist', 'bundle.js'));
+app.get('/:reqPath', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'dist', req.params.reqPath));
 });
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
