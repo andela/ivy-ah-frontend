@@ -12,11 +12,11 @@ import Profile from 'Containers/Profile';
 import ArticleHeader from 'Components/ArticleHeader';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
+import SocialAuthRedirect from 'Components/SocialAuthRedirect';
 import Articles from 'Containers/ArticleContainer';
 import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
-import Highlight from '../components/comments/Highlight';
 
 const articles = () => (
   <div>
@@ -29,7 +29,6 @@ const articles = () => (
 const singleArticle = ({ match }) => (
   <div className="single-article-page">
     <Header />
-    <Highlight />
     <div className="article-view">
       <Article match={match} />
       <CommentContainer match={match} />
@@ -56,6 +55,7 @@ const App = () => (
       <Route path="/notfound" component={NotFound} />
       <Route path="/profile" component={Profile} />
       <Route path="/createarticle" component={createArticlePage} />
+      <Route path="/token" component={SocialAuthRedirect} />
       <Route component={NotFound} />
     </Switch>
     <Footer />
