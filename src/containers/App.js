@@ -16,6 +16,7 @@ import Articles from 'Containers/ArticleContainer';
 import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
+import Highlight from '../components/comments/Highlight';
 
 const articles = () => (
   <div>
@@ -28,6 +29,7 @@ const articles = () => (
 const singleArticle = ({ match }) => (
   <div className="single-article-page">
     <Header />
+    <Highlight />
     <div className="article-view">
       <Article match={match} />
       <CommentContainer match={match} />
