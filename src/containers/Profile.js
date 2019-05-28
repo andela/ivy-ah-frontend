@@ -121,7 +121,7 @@ const Profile = ({
                 {loadingContent ? <ProfilePlaceholder /> : null}
                 {loadedContentType === 'articles'
                 && !loadingContent ? (!latestContent) ? <div> No articles yet </div> : (
-                  <ProfileArticleCard article={latestContent} />
+                  <ProfileArticleCard article={latestContent} signedInUser={signedInUser} />
                 ) : null}
                 {loadedContentType === 'bio'
                 && latestContent

@@ -34,14 +34,14 @@ div#root {
 
 .main-editor span {
   font-family: medium-content-sans-serif-font, Lora !important;
-  font-size: 21px !important;
-  line-height: 1.58 !important;
+  font-size: 21px;
+  line-height: 1.58;
   letter-spacing: -.003em !important;
 }
 
 @media only screen and (max-width: 768px) {
   .main-editor span {
-    font-size: 16px !important;
+    font-size: 16px;
   }
 }
 
