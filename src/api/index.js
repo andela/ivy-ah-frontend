@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 
-const API_BASE_URL = 'http://localhost:3000/api/v1';
+const API_BASE_URL = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1';
 
 export const getToken = () => store.getState().auth.token;
 
