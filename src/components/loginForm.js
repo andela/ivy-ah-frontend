@@ -99,7 +99,7 @@ loginForm.propTypes = {
   submit: PropTypes.func,
   loggedIn: PropTypes.bool,
   loading: PropTypes.bool,
-  authError: PropTypes.oneOf(['null', null, PropTypes.object]).isRequired
+  authError: PropTypes.oneOf(['null', null, PropTypes.object])
 };
 
 const defaultFunc = input => input;
@@ -107,7 +107,8 @@ const defaultFunc = input => input;
 loginForm.defaultProps = {
   loggedIn: false,
   loading: false,
-  submit: defaultFunc
+  submit: defaultFunc,
+  authError: null
 };
 
 export default loginForm;
