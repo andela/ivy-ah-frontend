@@ -34,7 +34,7 @@ const ArticlePreviewSwitch = ({ article, isSmall }) => {
       <ArticlePreviewImage className="image article-image-large" imageUrl={image[0]} />
       <div className="content">
         <div className="header">{article.title}</div>
-        <div className="meta">{`${article.user.firstname} ${article.user.lastname} kklkl`}</div>
+        <div className="meta">{`${article.user.firstname} ${article.user.lastname}`}</div>
       </div>
       <BookmarkContainer articleId={article.id} />
     </div>

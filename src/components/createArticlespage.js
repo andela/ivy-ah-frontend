@@ -11,21 +11,22 @@ import Textarea from 'react-textarea-autosize';
 import { Redirect } from 'react-router-dom';
 import isEqual from 'lodash.isequal';
 import Header from './Header';
-import { createArticle, updateArticle } from '../actions/createArticleActions';
+import { createArticle, updateArticle, changeEditorStatus } from '../actions/createArticleActions';
 
 const CreateArticlePage = ({
   createdArticle: { article },
   updateNewArticle,
   createNewArticle,
   edit,
+  setEditorOpen,
 }) => {
   const [title, setTitle] = useState(edit.title || '');
   const [editorState, setEditorState] = useState(edit.body
     ? EditorState.createWithContent(convertFromRaw(JSON.parse(edit.body)))
     : EditorState.createEmpty());
-  const [tags, setTags] = useState(edit.tagList.map(tag => ({
+  const [tags, setTags] = useState(edit.tagList ? edit.tagList.map(tag => ({
     id: tag, text: tag
-  })) || []);
+  })) : [] || []);
   const [formError, setFormError] = useState('');
   const [showToolbar, setShowToolbar] = useState(false);
   const [currPost, setPost] = useState({});
@@ -56,7 +57,7 @@ const CreateArticlePage = ({
     setShowToolbar(true);
     setPosition({
       x,
-      y: y + window.scrollY - 50,
+      y: y + (window.scrollY - 50),
       width
     });
   };
@@ -170,6 +171,10 @@ const CreateArticlePage = ({
     setShouldUpdate(false);
   });
 
+  useEffect(() => () => {
+    setEditorOpen();
+  }, []);
+
   if (article && article.isPublished) {
     return <Redirect to={`/article/${article.id}`} />;
   }
@@ -259,7 +264,8 @@ CreateArticlePage.propTypes = {
   createNewArticle: PropTypes.func.isRequired,
   updateNewArticle: PropTypes.func.isRequired,
   createdArticle: PropTypes.object.isRequired,
-  edit: PropTypes.object.isRequired
+  edit: PropTypes.object.isRequired,
+  setEditorOpen: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ createArticleReducer }) => ({
@@ -269,6 +275,7 @@ const mapStateToProps = ({ createArticleReducer }) => ({
 const mapDispatchToProps = dispatch => ({
   createNewArticle: article => dispatch(createArticle(article)),
   updateNewArticle: (id, article) => dispatch(updateArticle(id, article)),
+  setEditorOpen: () => dispatch(changeEditorStatus()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateArticlePage);

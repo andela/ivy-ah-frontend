@@ -6,6 +6,7 @@ const initialArticleState = {
   edit: {},
   loading: false,
   updateLoading: false,
+  editorOpen: false,
 };
 
 export default (state = initialArticleState, { type, payload }) => {
@@ -53,7 +54,18 @@ export default (state = initialArticleState, { type, payload }) => {
         edit: payload,
         createdArticle: {
           article: { id: payload.id }
-        }
+        },
+        editorOpen: true,
+      };
+    case actions.CLEAR_ARTICLE_EDITOR:
+      return {
+        ...initialArticleState,
+        editorOpen: true,
+      };
+    case actions.CHANGE_EDITOR_STATUS:
+      return {
+        ...state,
+        editorOpen: false,
       };
     default:
       return state;

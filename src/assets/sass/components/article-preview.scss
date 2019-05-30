@@ -205,6 +205,20 @@
   }
 }
 
+button.scroll-to-top-button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  background-image: url(https://res.cloudinary.com/ivy-league/image/upload/c_scale,w_200/v1559060118/key-up_2.svg);
+  background-size: contain;
+  background-color: transparent;
+  z-index: 3;
+  outline: none;
+}
+
 @media only screen and (min-width: 590px) {
   .test-grid {
     grid-template-columns: repeat(2, 21rem);

@@ -30,6 +30,14 @@ export const updateArticleFailed = () => ({
   type: actions.UPDATE_ARTICLE_FAILED,
 });
 
+export const clearArticleEditor = () => ({
+  type: actions.CLEAR_ARTICLE_EDITOR,
+});
+
+export const changeEditorStatus = () => ({
+  type: actions.CHANGE_EDITOR_STATUS
+});
+
 export const createArticle = article => (dispatch) => {
   dispatch(createArticleBegin());
   const body = JSON.stringify(article);

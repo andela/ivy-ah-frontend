@@ -50,6 +50,7 @@
   }
 
   &-readtime {
+    width: 17rem;
     color: grey !important;
     margin-top: 2px !important;
   }
@@ -60,6 +61,7 @@
       font-size: 1.2rem !important;
       font-weight: bold !important;
       display: inline-block;
+      margin-bottom: 0;
     }
     &-image {
       display: inline-block;

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import {
-  Button, Modal
-} from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 import { editArticle, deleteSingleArticle } from '../actions/profileActions';
 
 const ProfileArticleBtns = ({

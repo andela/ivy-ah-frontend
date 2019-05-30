@@ -25,13 +25,15 @@ const ProfileArticleCard = ({ article, signedInUser }) => (
               avatar
               floated="left"
             />
-            <span className="profile-article-user-name">
+            <p className="profile-article-user-name">
               {`${article.user.firstname} ${article.user.lastname}`}
-            </span>
+            </p>
             <p className="profile-article-readtime">
               {' '}
               {`${Math.floor(parseInt(article.readTime, 10) / 60)
                 || '< 1'} min read`}
+              {' '}
+              {`${!article.isPublished ? '| Draft' : ''}`}
             </p>
           </div>
           <EditBtns article={article} signedInUser={signedInUser} />

@@ -17,12 +17,14 @@ import Articles from 'Containers/ArticleContainer';
 import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
+import ScrollToTop from '../components/ScrollToTop';
 
 const articles = () => (
   <div>
     <ArticleHeader />
     <Articles />
     <div style={{ display: 'none' }} id="background" className="background effect" />
+    <ScrollToTop />
   </div>
 );
 
