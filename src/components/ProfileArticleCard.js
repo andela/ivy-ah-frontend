@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Card, Image, Grid } from 'semantic-ui-react';
+import EditBtns from '../containers/ProfileArticleBtns';
 
-const ProfileArticleCard = ({ article }) => (
+const ProfileArticleCard = ({ article, signedInUser }) => (
   <Grid.Column>
     <Link href="article" to={`/article/${article.id}`}>
       <div
@@ -18,21 +19,24 @@ const ProfileArticleCard = ({ article }) => (
                 article.user.image
                   ? article.user.image
                   : `https://ui-avatars.com/api/?bold=true&background=3157BE&color=fff&name=+${
-                    article.user.lastname
-                  }+${article.user.firstname}`
+                    article.user.firstname
+                  }+${article.user.lastname}`
               }
               avatar
               floated="left"
             />
-            <span className="profile-article-user-name">
+            <p className="profile-article-user-name">
               {`${article.user.firstname} ${article.user.lastname}`}
-            </span>
+            </p>
             <p className="profile-article-readtime">
               {' '}
               {`${Math.floor(parseInt(article.readTime, 10) / 60)
                 || '< 1'} min read`}
+              {' '}
+              {`${!article.isPublished ? '| Draft' : ''}`}
             </p>
           </div>
+          <EditBtns article={article} signedInUser={signedInUser} />
           <div
             style={{
               overflow: 'hidden',
@@ -63,7 +67,8 @@ const ProfileArticleCard = ({ article }) => (
 );
 
 ProfileArticleCard.propTypes = {
-  article: PropTypes.shape({})
+  article: PropTypes.shape({}),
+  signedInUser: PropTypes.string.isRequired
 };
 
 ProfileArticleCard.defaultProps = {

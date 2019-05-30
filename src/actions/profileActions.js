@@ -4,7 +4,8 @@ import {
   fetchUserArticle,
   fetchUserFollowers,
   updateProfile,
-  uploadProfileImage
+  uploadProfileImage,
+  deleteArticle
 } from '../api';
 
 export const getProfileStart = () => ({
@@ -150,3 +151,22 @@ export const changeProfileImage = profileImage => (dispatch) => {
       dispatch(changingProfileImageFailed());
     });
 };
+
+export const deleteArticleSucceeded = articleId => ({
+  type: actions.DELETE_ARTICLE_SUCCEEDED,
+  payload: articleId,
+});
+
+export const deleteArticleFailed = articleId => ({
+  type: actions.DELETE_ARTICLE_FAILED,
+  payload: articleId,
+});
+
+export const editArticle = article => ({
+  type: actions.EDIT_ARTICLE,
+  payload: article
+});
+
+export const deleteSingleArticle = articleId => dispatch => deleteArticle(articleId)
+  .then(() => dispatch(deleteArticleSucceeded(articleId)))
+  .catch(() => dispatch(deleteArticleFailed(articleId)));

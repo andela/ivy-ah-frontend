@@ -29,14 +29,6 @@ describe('<ProfileArticleCard/>', () => {
     const wrapper = shallow(<ProfileArticleCard article={article} />);
     expect(wrapper.find(<Grid.Column />));
   });
-
-  it('Should match the snapshot', () => {
-    const tree = renderer.create(<MemoryRouter>
-      <ProfileArticleCard article={article} />
-    </MemoryRouter>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 });
 
 describe('<ProfileFollowingCard/>', () => {

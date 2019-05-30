@@ -1,11 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SideMenuContainer from './SideMenuContainer';
 import AuthButtonContainer from '../containers/AuthButtonContainer';
+
 
 const Header = () => (
   <div>
     <div className="ui grid header-title-container">
       <div className="column header-title-small">
+        <Link to="/">
+          <img
+            className="authors-haven-logo"
+            src="https://res.cloudinary.com/ivy-league/image/upload/c_scale,w_200/v1558960765/imageedit_4_4952981594.png"
+            alt="authors-haven-log"
+          />
+        </Link>
         {"Authors' Haven"}
       </div>
       <div className="column header-button-top">

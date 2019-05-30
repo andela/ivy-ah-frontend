@@ -17,12 +17,14 @@ import Articles from 'Containers/ArticleContainer';
 import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
 import CommentContainer from './CommentContainer';
+import ScrollToTop from '../components/ScrollToTop';
 
 const articles = () => (
   <div>
     <ArticleHeader />
     <Articles />
     <div style={{ display: 'none' }} id="background" className="background effect" />
+    <ScrollToTop />
   </div>
 );
 
@@ -33,6 +35,13 @@ const singleArticle = ({ match }) => (
       <Article match={match} />
       <CommentContainer match={match} />
     </div>
+  </div>
+);
+
+const profile = ({ match }) => (
+  <div className="profile-outer-container">
+    <Header />
+    <Profile match={match} />
   </div>
 );
 
@@ -50,7 +59,7 @@ const App = () => (
       <Route path="/article/:id" component={singleArticle} />
       <Route
         path="/profile/:id"
-        component={Profile}
+        component={profile}
       />
       <Route path="/notfound" component={NotFound} />
       <Route path="/profile" component={Profile} />
@@ -63,6 +72,10 @@ const App = () => (
 );
 
 singleArticle.propTypes = {
+  match: PropTypes.object.isRequired,
+};
+
+profile.propTypes = {
   match: PropTypes.object.isRequired,
 };
 

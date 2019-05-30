@@ -30,6 +30,13 @@ $imp: !important;
   }
 }
 
+img.authors-haven-logo {
+  width: 55px;
+  height: 46px;
+  margin-right: 11px;
+  cursor: pointer;
+}
+
 .bars.icon.bars {
   color: #3157be;
 }
@@ -40,6 +47,8 @@ $imp: !important;
 
 .ui.grid.header-title-container > .column.header-title-small {
   width: 50%;
+  display: inline-flex;
+  align-items: center;
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
