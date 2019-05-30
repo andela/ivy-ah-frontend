@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { postComment } from '../actions/comment';
 import Comment from '../components/comments/Comment';
 import { toggleModal } from '../actions/auth';
+import Highlight from '../components/comments/Highlight';
 
 export const CommentContainer = ({
   articleId, loading, comments, postCommentHandler, error, isAuth, requestAuth, match
@@ -18,6 +19,14 @@ export const CommentContainer = ({
       isAuth={isAuth}
       requestAuth={requestAuth}
     />
+    <Highlight
+      postCommentHandler={postCommentHandler}
+      articleId={articleId}
+      loading={loading}
+      error={error}
+      isAuth={isAuth}
+      requestAuth={requestAuth}
+    />
   </div>
 );
 
@@ -25,16 +34,19 @@ const mapStateToProps = ({
   comment: {
     error, loading, articleId, comments
   },
-  auth: {
-    token
-  }
+  auth: { token }
 }) => ({
-  loading, error, articleId, comments, isAuth: !!token
+  loading,
+  error,
+  articleId,
+  comments,
+  isAuth: !!token
 });
 
 const mapDispatchToProps = dispatch => ({
-  postCommentHandler: (articleId, body) => dispatch(postComment(articleId, body)),
-  requestAuth: () => dispatch(toggleModal('sign in')),
+  postCommentHandler: (articleId, body, highlightedText, textPosition) =>
+    dispatch(postComment(articleId, body, highlightedText, textPosition)),
+  requestAuth: () => dispatch(toggleModal('sign in'))
 });
 
 CommentContainer.propTypes = {

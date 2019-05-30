@@ -61,6 +61,12 @@ const CommentBox = ({ comments }) => {
                   <p className="comment-createdAt text">{timeConverter(comment.createdAt)}</p>
                 </div>
               </div>
+              {comment.highlight
+               && (
+               <p style={{ backgroundColor: '#DBF3FA', display: 'inline-block' }}>
+                 {comment.highlight.highlightedText}
+               </p>
+               )}
               <p>{comment.body}</p>
             </div>
           )))

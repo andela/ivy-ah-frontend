@@ -15,9 +15,9 @@ export const postCommentFailed = error => ({
   payload: { error }
 });
 
-export const postComment = (articleId, body) => (dispatch) => {
+export const postComment = (articleId, body, highlightedText, textPosition) => (dispatch) => {
   dispatch(postCommentStarted());
-  return api.postComment(articleId, body)
+  return api.postComment(articleId, body, highlightedText, textPosition)
     .then((res) => {
       dispatch(postCommentSucceeded(res.data.comment));
     })

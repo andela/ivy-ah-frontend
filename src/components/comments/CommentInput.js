@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import autosize from 'autosize';
 
 const CommentInput = ({
-  postCommentHandler, articleId, loading, error, isAuth, requestAuth
+  postCommentHandler, articleId, loading, error, isAuth, requestAuth, highlight, textPosition
 }) => {
   const [inputValue, updateInput] = useState('');
   const [isSubmitted, setSubmitted] = useState(false);
@@ -34,7 +34,7 @@ const CommentInput = ({
       return;
     }
     setSubmitted(true);
-    postCommentHandler(articleId, inputValue);
+    postCommentHandler(articleId, inputValue, highlight, textPosition);
   };
 
   return (
@@ -71,6 +71,8 @@ CommentInput.propTypes = {
   error: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
   requestAuth: PropTypes.func.isRequired,
+  highlight: PropTypes.string.isRequired,
+  textPosition: PropTypes.number.isRequired,
 };
 
 export default CommentInput;
