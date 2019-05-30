@@ -12,6 +12,7 @@ import Profile from 'Containers/Profile';
 import ArticleHeader from 'Components/ArticleHeader';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
+import SocialAuthRedirect from 'Components/SocialAuthRedirect';
 import Articles from 'Containers/ArticleContainer';
 import Follow from 'Containers/Follow';
 import createArticlePage from '../components/createArticlespage';
@@ -54,6 +55,7 @@ const App = () => (
       <Route path="/notfound" component={NotFound} />
       <Route path="/profile" component={Profile} />
       <Route path="/createarticle" component={createArticlePage} />
+      <Route path="/token" component={SocialAuthRedirect} />
       <Route component={NotFound} />
     </Switch>
     <Footer />
