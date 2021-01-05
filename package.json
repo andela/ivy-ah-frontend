@@ -22,7 +22,7 @@
   "homepage": "https://github.com/andela/ivy-ah-frontend#readme",
   "dependencies": {
     "autosize": "^4.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "express": "^4.16.4",
