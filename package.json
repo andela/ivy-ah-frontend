@@ -33,7 +33,7 @@
     "overlayscrollbars": "^1.7.0",
     "prerender-node": "^3.2.4",
     "prop-types": "^15.7.2",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dnd": "^5.0.0",
